@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.AnimeController">
+    <Label layoutX="22.0" prefHeight="59.0" prefWidth="500.0" text="Каталог аниме" />
+    <ScrollPane layoutX="22.0" layoutY="59.0" prefHeight="376.0" prefWidth="500.0" vbarPolicy="ALWAYS">
+        <Pagination fx:id="animePagination" pageCount="1000" prefHeight="2000.0" prefWidth="481.0" />
+    </ScrollPane>
+    <ScrollPane layoutX="526.0" layoutY="59.0" prefHeight="376.0" prefWidth="262.0" vvalue="1.0">
+        <Pane prefWidth="243.0">
+            <ListView fx:id="lvGenres" layoutY="34.0" prefHeight="120.0" prefWidth="243.0">
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+            </ListView>
+            <Label prefHeight="34.0" prefWidth="243.0" text="Жанри" />
+            <Label layoutY="154.0" prefHeight="34.0" prefWidth="243.0" text="Тип аниме" />
+            <ChoiceBox fx:id="cbAnimeTypes" layoutY="188.0" prefWidth="243.0" />
+            <Label layoutY="219.0" prefHeight="34.0" prefWidth="243.0" text="Статус" />
+            <ChoiceBox fx:id="cbAnimeStatuses" layoutY="253.0" prefWidth="243.0" />
+            <Label layoutY="284.0" prefHeight="34.0" prefWidth="243.0" text="Год" />
+            <TextField fx:id="tbYearFrom" layoutY="318.0" prefHeight="31.0" prefWidth="120.0" promptText="от" />
+            <TextField fx:id="tbYearTo" layoutX="123.0" layoutY="318.0" prefHeight="31.0" prefWidth="120.0" promptText="до" />
+            <Label layoutY="348.0" prefHeight="34.0" prefWidth="243.0" text="Возрастной рейтинг" />
+            <ChoiceBox fx:id="cbAgeRatings" layoutY="381.0" prefWidth="243.0" />
+         <Button layoutY="432.0" mnemonicParsing="false" onAction="#onBFilter" prefWidth="243.0" text="Искать" />
+        </Pane>
+    </ScrollPane>
+</AnchorPane>

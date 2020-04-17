@@ -2,6 +2,8 @@ package com.folva.moderneastculture.model.dto;
 
 import com.folva.moderneastculture.model.Repository;
 
+import java.util.ArrayList;
+
 public class Anime {
 
     public enum Type {
@@ -27,8 +29,105 @@ public class Anime {
     private int premiereYear;
     private YearSeason premiereSeason;
     private Status status;
+    private ArrayList<String> altNames;
 
     private Anime() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getEpisodeCount() {
+        return episodeCount;
+    }
+
+    public void setEpisodeCount(int episodeCount) {
+        this.episodeCount = episodeCount;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
+
+    public AgeRating getRating() {
+        return rating;
+    }
+
+    public void setRating(AgeRating rating) {
+        this.rating = rating;
+    }
+
+    public int getPremiereYear() {
+        return premiereYear;
+    }
+
+    public void setPremiereYear(int premiereYear) {
+        this.premiereYear = premiereYear;
+    }
+
+    public YearSeason getPremiereSeason() {
+        return premiereSeason;
+    }
+
+    public void setPremiereSeason(YearSeason premiereSeason) {
+        this.premiereSeason = premiereSeason;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public ArrayList<String> getAltNames() {
+        return altNames;
+    }
+
+    public void setAltNames(ArrayList<String> altNames) {
+        this.altNames = altNames;
     }
 
     public static class Builder {
@@ -36,6 +135,7 @@ public class Anime {
         private Anime anime;
 
         private Builder() {
+            anime = new Anime();
         }
 
         public static Builder newBuilder() {
@@ -47,7 +147,7 @@ public class Anime {
             return this;
         }
 
-        public Builder setAuthorId(Author author) {
+        public Builder setAuthor(Author author) {
             anime.author = author;
             return this;
         }

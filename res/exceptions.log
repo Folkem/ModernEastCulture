@@ -519,3 +519,634 @@ javafx.fxml.LoadException: No resources specified.
 2020.04.17 - 11:47:13.524 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
 2020.04.17 - 11:47:16.802 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged out!
 2020.04.17 - 11:47:19.017 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:16:14.787 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:16:14.991 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.lang.NullPointerException
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:18) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 14:17:18.999 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:17:19.121 [ERROR] com.folva.moderneastculture.model.Repository - Error while getting genres from db: 
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: genres)
+	at org.sqlite.core.DB.newSQLException(DB.java:941) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.core.DB.newSQLException(DB.java:953) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.core.DB.throwex(DB.java:918) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.core.NativeDB.prepare_utf8(Native Method) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.core.NativeDB.prepare(NativeDB.java:134) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.core.DB.prepare(DB.java:257) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.jdbc3.JDBC3Statement.executeQuery(JDBC3Statement.java:73) ~[sqlite-jdbc-3.30.1.jar:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getGenres(Repository.java:198) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getGenres(Repository.java:150) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:18) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+2020.04.17 - 14:18:10.747 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:18:58.010 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:19:06.689 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:20:04.353 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:20:13.306 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:21:44.917 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:21:47.836 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:22:10.649 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:22:26.265 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:34:30.813 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:34:30.931 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key series
+	at java.util.ResourceBundle.getObject(ResourceBundle.java:450) ~[?:1.8.0_221]
+	at java.util.ResourceBundle.getString(ResourceBundle.java:407) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.Repository.getNamesBundleValue(Repository.java:146) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.setAnimeTypes(AnimeController.java:31) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:25) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 14:35:13.764 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:35:32.836 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run$$$capture(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key series
+	at java.util.ResourceBundle.getObject(ResourceBundle.java:450) ~[?:1.8.0_221]
+	at java.util.ResourceBundle.getString(ResourceBundle.java:407) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.Repository.getNamesBundleValue(Repository.java:146) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.setAnimeTypes(AnimeController.java:31) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:25) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 24 more
+2020.04.17 - 14:35:52.403 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:38:29.337 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run$$$capture(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key series
+	at java.util.ResourceBundle.getObject(ResourceBundle.java:450) ~[?:1.8.0_221]
+	at java.util.ResourceBundle.getString(ResourceBundle.java:407) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.Repository.getNamesBundleValue(Repository.java:146) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.setAnimeTypes(AnimeController.java:31) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:25) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 24 more
+2020.04.17 - 14:38:53.980 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:39:03.530 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:44:41.273 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:44:56.579 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:52:58.292 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:53:04.291 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 14:53:31.158 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 14:53:53.905 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:00:22.836 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:00:35.402 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:01:19.478 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:01:30.216 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:01:51.129 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:01:58.177 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:05:54.334 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:06:02.399 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:13:38.721 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:13:38.921 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key g
+	at java.util.ResourceBundle.getObject(ResourceBundle.java:450) ~[?:1.8.0_221]
+	at java.util.ResourceBundle.getString(ResourceBundle.java:407) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.Repository.getNamesBundleValue(Repository.java:146) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.setAgeRatings(AnimeController.java:48) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:42) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 15:14:03.599 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:14:08.101 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:14:39.906 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:14:46.790 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:15:11.871 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:15:35.386 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 15:15:52.127 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 15:16:01.653 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 16:13:50.764 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:13:51.322 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.lang.NullPointerException
+	at com.folva.moderneastculture.model.dto.Author.access$002(Author.java:3) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.dto.Author$Builder.setId(Author.java:51) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAuthors(Repository.java:315) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:244) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:63) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:47) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 16:14:25.987 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:14:26.200 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.lang.IllegalArgumentException: No enum constant com.folva.moderneastculture.model.dto.AgeRating.PG-13
+	at java.lang.Enum.valueOf(Enum.java:238) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.dto.AgeRating.valueOf(AgeRating.java:3) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAgeRatings(Repository.java:336) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:245) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:63) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:47) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 16:17:16.724 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:17:16.986 [ERROR] com.folva.moderneastculture.model.Repository - Error while getting anime from db: 
+java.sql.SQLException: no such column: 'id_rating'
+	at org.sqlite.jdbc3.JDBC3ResultSet.findColumn(JDBC3ResultSet.java:49) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.jdbc3.JDBC3ResultSet.getInt(JDBC3ResultSet.java:408) ~[sqlite-jdbc-3.30.1.jar:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:268) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:63) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:47) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+2020.04.17 - 16:19:16.085 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 16:20:13.227 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:20:13.839 [ERROR] com.folva.moderneastculture.model.Repository - Error while getting anime from db: 
+java.lang.IllegalArgumentException: No enum constant com.folva.moderneastculture.model.dto.Status.WINTER
+	at java.lang.Enum.valueOf(Enum.java:238) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.dto.Status.valueOf(Status.java:3) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:280) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:63) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:47) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+2020.04.17 - 16:20:16.094 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.17 - 16:21:02.577 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:21:02.837 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.lang.NullPointerException
+	at com.folva.moderneastculture.model.dto.Anime.access$002(Anime.java:7) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.dto.Anime$Builder.setId(Anime.java:145) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:283) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:63) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:47) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 16:21:57.914 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:21:58.179 [ERROR] com.folva.moderneastculture.model.Repository - Error while getting anime from db: 
+java.lang.IllegalArgumentException: No enum constant com.folva.moderneastculture.model.dto.YearSeason.UNDEFINED
+	at java.lang.Enum.valueOf(Enum.java:238) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.dto.YearSeason.valueOf(YearSeason.java:3) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:277) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:63) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:47) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+2020.04.17 - 16:21:58.188 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.lang.UnsupportedOperationException
+	at java.util.AbstractList.add(AbstractList.java:148) ~[?:1.8.0_221]
+	at java.util.AbstractList.add(AbstractList.java:108) ~[?:1.8.0_221]
+	at java.util.AbstractCollection.addAll(AbstractCollection.java:344) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:64) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:47) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 16:22:50.343 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:22:50.602 [ERROR] com.folva.moderneastculture.model.Repository - Error while getting anime from db: 
+java.lang.IllegalArgumentException: No enum constant com.folva.moderneastculture.model.dto.YearSeason.UNDEFINED
+	at java.lang.Enum.valueOf(Enum.java:238) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.dto.YearSeason.valueOf(YearSeason.java:3) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:277) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:64) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:48) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+2020.04.17 - 16:22:50.612 [ERROR] com.folva.moderneastculture.Main - Error while loading menu window
+javafx.fxml.LoadException: 
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/AnimeForm.fxml
+/D:/_MyFolder/projects/Java/DifferentStuff/ModernEastCulture/out/production/ModernEastCulture/com/folva/moderneastculture/view/MenuForm.fxml:14
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+Caused by: java.lang.UnsupportedOperationException
+	at java.util.AbstractList.add(AbstractList.java:148) ~[?:1.8.0_221]
+	at java.util.AbstractList.add(AbstractList.java:108) ~[?:1.8.0_221]
+	at java.util.AbstractCollection.addAll(AbstractCollection.java:344) ~[?:1.8.0_221]
+	at javafx.beans.binding.ListExpression.addAll(ListExpression.java:266) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:65) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:48) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	... 23 more
+2020.04.17 - 16:26:00.970 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:26:01.224 [ERROR] com.folva.moderneastculture.model.Repository - Error while getting anime from db: 
+java.lang.IllegalArgumentException: No enum constant com.folva.moderneastculture.model.dto.YearSeason.UNDEFINED
+	at java.lang.Enum.valueOf(Enum.java:238) ~[?:1.8.0_221]
+	at com.folva.moderneastculture.model.dto.YearSeason.valueOf(YearSeason.java:3) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getAnimes(Repository.java:277) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getAnimes(Repository.java:153) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.importAnime(AnimeController.java:65) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.AnimeController.initialize(AnimeController.java:49) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3116) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:107) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:55) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+2020.04.17 - 16:26:34.781 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.17 - 16:26:42.795 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.

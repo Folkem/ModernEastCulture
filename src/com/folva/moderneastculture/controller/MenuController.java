@@ -52,5 +52,6 @@ public class MenuController implements Initializable {
 
         Parent loginForm = (Parent)(tabSettings.getContent());
         Main.formMap.put("LoginForm", loginForm);
+        tabPane.getSelectionModel().select(1);
     }
 }

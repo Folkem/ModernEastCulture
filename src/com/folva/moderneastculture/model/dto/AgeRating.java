@@ -14,4 +14,17 @@ public enum AgeRating {
     public int getId() {
         return id;
     }
+
+    public static AgeRating valueOfId(int id) {
+        AgeRating ageRating = null;
+
+        for (AgeRating rating : AgeRating.values()) {
+            if (rating.getId() == id) {
+                ageRating = rating;
+                break;
+            }
+        }
+
+        return ageRating;
+    }
 }

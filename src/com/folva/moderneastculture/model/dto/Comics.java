@@ -2,6 +2,8 @@ package com.folva.moderneastculture.model.dto;
 
 import com.folva.moderneastculture.model.Repository;
 
+import java.util.ArrayList;
+
 public class Comics {
 
     public enum Type {
@@ -24,8 +26,89 @@ public class Comics {
     private Source source;
     private int premiereYear;
     private Status status;
+    private ArrayList<String> altNames;
 
     private Comics() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getChapterCount() {
+        return chapterCount;
+    }
+
+    public void setChapterCount(int chapterCount) {
+        this.chapterCount = chapterCount;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
+
+    public int getPremiereYear() {
+        return premiereYear;
+    }
+
+    public void setPremiereYear(int premiereYear) {
+        this.premiereYear = premiereYear;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public ArrayList<String> getAltNames() {
+        return altNames;
+    }
+
+    public void setAltNames(ArrayList<String> altNames) {
+        this.altNames = altNames;
     }
 
     public static class Builder {
@@ -33,6 +116,7 @@ public class Comics {
         private Comics comics;
 
         private Builder() {
+            comics = new Comics();
         }
 
         public static Builder newBuilder() {
