@@ -1,0 +1,14 @@
+#loginForm {
+    -fx-background-image: url(/img/bg_login.gif);
+    -fx-background-size: cover;
+    -fx-background-color: rgba(0,100,0,1);
+}
+
+#settingsForm {
+    -fx-background-image: url(/img/bg_settings.gif);
+    -fx-background-size: cover;
+}
+
+#settings_exitButton {
+    -fx-background-color: rgba(0,0,0,0);
+}

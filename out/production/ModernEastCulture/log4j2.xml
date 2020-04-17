@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="FileAppender" fileName="exceptions.log">
+            <PatternLayout pattern="%d{YYYY.MM.dd - HH:mm:ss.SSS} [%level] %-20logger - %msg%n"/>
+        </File>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%n%d{YYYY.MM.dd - HH:mm:ss.SSS} [%level] %-20logger - %msg%n%ex"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="ALL">
+            <AppenderRef ref="Console" level="ALL"/>
+            <AppenderRef ref="FileAppender" level="ALL"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
+<!-- ALL > TRACE > INFO > DEBUG > WARN > ERROR > FATAL -->
