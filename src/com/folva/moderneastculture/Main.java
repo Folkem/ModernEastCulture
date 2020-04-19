@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -38,10 +39,11 @@ public class Main extends Application {
 
         confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.getButtonTypes().remove(1);
+        confirmationAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         warningAlert = new Alert(Alert.AlertType.WARNING);
-//        warningAlert.getButtonTypes().remove(1);
+        warningAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         errorAlert = new Alert(Alert.AlertType.ERROR);
-//        errorAlert.getButtonTypes().remove(1);
+        errorAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
     }
 
     public static void main(String[] args) {
@@ -59,28 +61,6 @@ public class Main extends Application {
     public void stop() throws Exception {
         Repository.instance.disconnectFromDatabase();
         super.stop();
-    }
-
-    /**
-     * Do you need it right now?
-     * @param formName form to open and with which replace the current scene
-     */
-    @Deprecated
-    public static void openForm(String formName) {
-        try {
-            Parent root;
-            if (formMap.containsKey(formName)) {
-                root = formMap.get(formName);
-            } else {
-                root = FXMLLoader.load(Main.class.getResource("view/" + formName + ".fxml"),
-                        Repository.namesBundle);
-                formMap.put(formName, root);
-            }
-            Scene formScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-            stage.setScene(formScene);
-        } catch (Exception e) {
-            logger.error("Error while opening " + formName + ": ", e);
-        }
     }
 
     public static Parent getForm(String formName) {

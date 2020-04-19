@@ -7,13 +7,13 @@ public class Author {
         HUMAN
     }
 
-    private Integer id;
+    private int id;
     private Type type;
     private String name;
 
     private Author() {}
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -50,9 +50,7 @@ public class Author {
         }
 
         public Builder setId(int id) {
-            if (id > 0) author.id = id;
-            else author.id = null;
-
+            author.id = id;
             return this;
         }
 
@@ -69,5 +67,18 @@ public class Author {
         public Author build() {
             return author;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Author)) return false;
+
+        Author author = (Author)obj;
+
+        boolean sameId = (id == author.id);
+        boolean sameType = (type.equals(author.type));
+        boolean sameName = (name.equals(author.name));
+
+        return sameId && sameType && sameName;
     }
 }

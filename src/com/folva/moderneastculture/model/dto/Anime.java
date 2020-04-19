@@ -3,12 +3,19 @@ package com.folva.moderneastculture.model.dto;
 import com.folva.moderneastculture.model.Repository;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Anime {
 
     public enum Type {
-        SERIES,
-        MOVIE
+        SERIES("series"),
+        MOVIE("movie");
+
+        public final String type;
+
+        Type(String type) {
+            this.type = type;
+        }
     }
 
     public enum Source {
@@ -32,6 +39,7 @@ public class Anime {
     private ArrayList<String> altNames;
 
     private Anime() {
+        altNames = new ArrayList<>();
     }
 
     public int getId() {
@@ -197,6 +205,11 @@ public class Anime {
             return this;
         }
 
+        public Builder setAltNames(ArrayList<String> altNames) {
+            anime.altNames = altNames;
+            return this;
+        }
+
         public Anime build() {
             Anime newAnime = anime;
             anime = null;
@@ -204,4 +217,27 @@ public class Anime {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Anime)) return false;
+
+        Anime anime = (Anime)obj;
+
+        boolean sameId = (id == anime.id);
+        boolean sameAuthor = (Objects.equals(author, anime.author));
+        boolean sameType = (Objects.equals(type, anime.type));
+        boolean sameName = (Objects.equals(name, anime.name));
+        boolean sameDescription = (Objects.equals(description, anime.description));
+        boolean sameEpisodeCount = (episodeCount == anime.episodeCount);
+        boolean sameSource = (Objects.equals(source, anime.source));
+        boolean sameRating = (Objects.equals(rating, anime.rating));
+        boolean samePremiereYear = (premiereYear == anime.premiereYear);
+        boolean samePremiereSeason = (Objects.equals(premiereSeason, anime.premiereSeason));
+        boolean sameStatus = (Objects.equals(status, anime.status));
+        boolean sameAltNames = (Objects.equals(altNames, anime.altNames));
+
+        return sameId && sameAuthor && sameType && sameName && sameDescription
+                && sameEpisodeCount && sameSource && sameRating && samePremiereYear
+                && samePremiereSeason && sameStatus && sameAltNames;
+    }
 }

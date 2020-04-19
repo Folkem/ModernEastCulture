@@ -5,6 +5,7 @@ import com.folva.moderneastculture.model.Repository;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 
 public class SettingsController {
 
@@ -16,6 +17,8 @@ public class SettingsController {
     @FXML
     private void onBExitClick() {
         Repository.adminIsAuthorizedProperty.set(false);
+        tbNewLogin.clear();
+        tbNewPassword.clear();
     }
 
     @FXML
@@ -27,6 +30,7 @@ public class SettingsController {
             Repository.instance.updateAdminPassword(newPassword);
             Main.confirmationAlert.setContentText(
                     Repository.instance.getNamesBundleValue("adminCredentialsChangesSuccessfully"));
+            Main.confirmationAlert.show();
         }
     }
 
@@ -44,6 +48,7 @@ public class SettingsController {
 
         if (textBuilder.length() > 0) {
             Main.warningAlert.setContentText(textBuilder.toString());
+            Main.warningAlert.show();
             return false;
         }
 

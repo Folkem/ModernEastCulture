@@ -2,10 +2,10 @@ package com.folva.moderneastculture.model;
 
 import com.folva.moderneastculture.model.dto.*;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -128,7 +128,7 @@ public class Repository {
     }
 
     public boolean loginIsValid(String login) {
-        if (login == null || !login.matches("[a-zA-Z0-9]{3,20}")) return false;
+        if (login == null || !login.matches("[a-zA-Z0-9@.]{3,20}")) return false;
 
         return true;
     }
@@ -145,7 +145,7 @@ public class Repository {
         return namesBundle.getString(key);
     }
 
-    public ArrayList<String> getGenres() {
+    public ArrayList<Genre> getGenres() {
         return dbRepository.getGenres();
     }
 
@@ -153,16 +153,20 @@ public class Repository {
         return dbRepository.getAnimes();
     }
 
+    public ArrayList<Pair<Anime, Genre>> getAnimeGenreMap() {
+        return dbRepository.getAnimeGenreMap();
+    }
+
     private static final class DbRepository {
 
-        private enum GenresFields {
+        private enum GenreFields {
             ID("id", 1),
             NAME("name", 2);
 
             public final String columnName;
             public final int columnIndex;
 
-            GenresFields(String columnName, int columnIndex) {
+            GenreFields(String columnName, int columnIndex) {
                 this.columnName = columnName;
                 this.columnIndex = columnIndex;
             }
@@ -172,7 +176,6 @@ public class Repository {
                 return columnName;
             }
         }
-
         private enum AnimeFields {
             ID("id", 1),
             ID_AUTHOR("id_author", 2),
@@ -199,7 +202,6 @@ public class Repository {
                 return columnName;
             }
         }
-
         private enum AuthorFields {
             ID("id", 1),
             TYPE("type", 2),
@@ -218,7 +220,6 @@ public class Repository {
                 return columnName;
             }
         }
-
         private enum AgeRatingFields {
             ID("id", 1),
             NAME("name", 2),
@@ -235,6 +236,61 @@ public class Repository {
             @Override
             public String toString() {
                 return columnName;
+            }
+        }
+        private enum AnimeGenreFields {
+            ID_ANIME("id_anime", 1),
+            ID_GENRE("id_genre", 2);
+
+            public final String columnName;
+            public final int columnIndex;
+
+            AnimeGenreFields(String columnName, int columnIndex) {
+                this.columnName = columnName;
+                this.columnIndex = columnIndex;
+            }
+
+            @Override
+            public String toString() {
+                return columnName;
+            }
+        }
+        private enum AnimeAltNameFields {
+            ID_ANIME("id_anime", 1),
+            ALTERNATIVE_NAME("alternative_name", 2);
+
+            public final String columnName;
+            public final int columnIndex;
+
+            AnimeAltNameFields(String columnName, int columnIndex) {
+                this.columnName = columnName;
+                this.columnIndex = columnIndex;
+            }
+
+            @Override
+            public String toString() {
+                return columnName;
+            }
+        }
+
+        public Connection connection;
+
+        public void connect() {
+            try {
+                connection = DriverManager.getConnection(CONNECTION_URL);
+                logger.info("Database connection is successful.");
+            } catch (SQLException e) {
+                logger.error("Database connection was refused: ", e);
+            }
+        }
+
+        public void disconnect() {
+            try {
+                if (connection != null)
+                    connection.close();
+                logger.info("Database was successfully disconnected.");
+            } catch (SQLException e) {
+                logger.error("Database wasn't disconnected: ", e);
             }
         }
 
@@ -267,7 +323,7 @@ public class Repository {
 
                     int animeAgeRatingId = resultSet.getInt(AnimeFields.ID_RATING.columnName);
                     Stream<AgeRating> ageRatingStream = ageRatings.stream().filter(
-                            ageRating -> ageRating.getId() == animeAgeRatingId);
+                            ageRating -> ageRating.id == animeAgeRatingId);
                     Optional<AgeRating> optionalAgeRating = ageRatingStream.findFirst();
                     AgeRating animeAgeRating = optionalAgeRating.orElse(null);
 
@@ -295,11 +351,36 @@ public class Repository {
 
                     animeList.add(newAnime);
                 }
+                resultSet.close();
             } catch (SQLException | IllegalArgumentException e) {
                 logger.error("Error while getting anime from db: ", e);
             }
 
+            setAnimeAltNames(animeList);
+
             return animeList;
+        }
+
+        private void setAnimeAltNames(ArrayList<Anime> animeList) {
+            ArrayList<Pair<Integer, String>> allAltNames = new ArrayList<>();
+
+            try {
+                ResultSet resultSet = connection.createStatement().executeQuery("select * from anime_alt_names");
+                while (resultSet.next()) {
+                    int idAnime = resultSet.getInt(AnimeAltNameFields.ID_ANIME.columnName);
+                    String altName = resultSet.getString(AnimeAltNameFields.ALTERNATIVE_NAME.columnName);
+                    Pair<Integer, String> newAltNameObj = new Pair<>(idAnime, altName);
+                    allAltNames.add(newAltNameObj);
+                }
+                resultSet.close();
+            } catch (SQLException e) {
+                logger.error("Error while getting anime alt names from db: ", e);
+            }
+
+            animeList.forEach(anime -> allAltNames.forEach(altName -> {
+                if (anime.getId() == altName.getKey())
+                    anime.getAltNames().add(altName.getValue());
+            }));
         }
 
         public ArrayList<Author> getAuthors() {
@@ -318,6 +399,7 @@ public class Repository {
                             .build();
                     authors.add(newAuthor);
                 }
+                resultSet.close();
             } catch (SQLException | IllegalArgumentException e) {
                 logger.error("Error while getting authors from db: ", e);
             }
@@ -336,6 +418,7 @@ public class Repository {
                     AgeRating ageRating = AgeRating.valueOfId(ageRatingId);
                     ageRatings.add(ageRating);
                 }
+                resultSet.close();
             } catch (SQLException e) {
                 logger.error("Error while getting age ratings from db: ", e);
             }
@@ -343,41 +426,50 @@ public class Repository {
             return ageRatings;
         }
 
-        public Connection connection;
-
-        public void connect() {
-            try {
-                connection = DriverManager.getConnection(CONNECTION_URL);
-                logger.info("Database connection is successful.");
-            } catch (SQLException e) {
-                logger.error("Database connection was refused: ", e);
-            }
-        }
-
-        public void disconnect() {
-            try {
-                if (connection != null)
-                    connection.close();
-                logger.info("Database was successfully disconnected.");
-            } catch (SQLException e) {
-                logger.error("Database wasn't disconnected: ", e);
-            }
-        }
-
-        public ArrayList<String> getGenres() {
-            ArrayList<String> genres = new ArrayList<>();
+        public ArrayList<Genre> getGenres() {
+            ArrayList<Genre> genres = new ArrayList<>();
 
             try {
                 ResultSet resultSet = connection.createStatement().executeQuery("select * from genres");
                 while (resultSet.next()) {
-                    genres.add(resultSet.getString(GenresFields.NAME.columnName));
+                    int genreId = resultSet.getInt(GenreFields.ID.columnName);
+                    String genreName = resultSet.getString(GenreFields.NAME.columnName);
+                    Genre newGenre = new Genre(genreId, genreName);
+                    genres.add(newGenre);
                 }
+                resultSet.close();
             } catch (SQLException e) {
                 logger.error("Error while getting genres from db: ", e);
                 // TODO: 17.04.2020 warning window to user
             }
 
             return genres;
+        }
+
+        @SuppressWarnings("OptionalGetWithoutIsPresent")
+        public ArrayList<Pair<Anime, Genre>> getAnimeGenreMap() {
+            ArrayList<Pair<Anime, Genre>> animeGenres = new ArrayList<>();
+            ArrayList<Anime> animes = getAnimes();
+            ArrayList<Genre> genres = getGenres();
+
+            try {
+                ResultSet resultSet = connection.createStatement().executeQuery("select * from anime_genres");
+                while (resultSet.next()) {
+                    int idAnime = resultSet.getInt(AnimeGenreFields.ID_ANIME.columnName);
+                    int idGenre = resultSet.getInt(AnimeGenreFields.ID_GENRE.columnName);
+                    Optional<Anime> optionalAnime = animes.stream().filter(anime -> anime.getId() == idAnime).findFirst();
+                    Optional<Genre> optionalGenre = genres.stream().filter(genre -> genre.id == idGenre).findFirst();
+                    Anime anime = optionalAnime.get();
+                    Genre genre = optionalGenre.get();
+                    Pair<Anime, Genre> pair = new Pair<>(anime, genre);
+                    animeGenres.add(pair);
+                }
+                resultSet.close();
+            } catch (SQLException e) {
+                logger.error("Error while getting anime genre connections: ", e);
+            }
+
+            return animeGenres;
         }
     }
 }

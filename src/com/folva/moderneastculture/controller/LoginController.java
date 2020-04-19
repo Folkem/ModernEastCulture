@@ -40,12 +40,9 @@ public class LoginController implements Initializable {
             Main.warningAlert.show();
             return;
         }
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("yes");
-        alert.setContentText("all correct");
-        alert.show();
+        
         Main.confirmationAlert.setContentText(Repository.instance.getNamesBundleValue("credentialsAreCorrect"));
+        Main.confirmationAlert.show();
 
         tbLogin.setText("");
         tbPassword.setText("");
