@@ -1,0 +1,27 @@
+#loginForm {
+    -fx-background-image: url(/res/img/bg_login.gif);
+    -fx-background-size: cover;
+}
+
+#settingsForm {
+    -fx-background-image: url(/res/img/bg_settings.gif);
+    -fx-background-size: cover;
+}
+
+.viewForm {
+    -fx-background-image: url(/res/img/bg_view.gif);
+    -fx-background-size: cover;
+}
+
+.editForm {
+    -fx-background-image: url(/res/img/bg_edit.gif);
+    -fx-background-size: cover;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar {
+    -fx-background-color: transparent;
+}

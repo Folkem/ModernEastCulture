@@ -8,13 +8,18 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 public class Main extends Application {
@@ -28,7 +33,7 @@ public class Main extends Application {
     public static final Alert errorAlert;
 
     public static Stage stage;
-    public static Map<String, Parent> formMap = new HashMap<>();
+    public static Map<String, Pair<Parent, Object>> formMap = new HashMap<>();
 
     static {
         try {
@@ -61,42 +66,71 @@ public class Main extends Application {
     public void stop() throws Exception {
         Repository.instance.disconnectFromDatabase();
         super.stop();
+        System.exit(0);
     }
 
     public static Parent getForm(String formName) {
         Parent root = new Group();
         try {
             if (formMap.containsKey(formName)) {
-                root = formMap.get(formName);
+                root = formMap.get(formName).getKey();
             } else {
-                root = FXMLLoader.load(Main.class.getResource("view/" + formName + ".fxml"), Repository.namesBundle);
-                formMap.put(formName, root);
+                FXMLLoader loader = new FXMLLoader(getResource("/res/fxml_views/" + formName + ".fxml"), Repository.namesBundle);
+                root = loader.load();
+                formMap.put(formName, new Pair<>(root, loader.getController()));
             }
         } catch (Exception e) {
             logger.error("Error while opening " + formName + ": ", e);
             Main.errorAlert.setContentText(instance.getNamesBundleValue("problemOccurred"));
-            Main.errorAlert.show();
-            System.exit(0);
+            Main.errorAlert.showAndWait();
+            System.exit(-1);
         }
 
         return root;
     }
 
+    public static Object getControllerForForm(String formName) {
+        Object controller = new Object();
+
+        if (formMap.containsKey(formName)) {
+            controller = formMap.get(formName).getValue();
+        }
+
+        return controller;
+    }
+
+    public static URL getResource(String resourceName) {
+        return Main.class.getResource(resourceName);
+    }
+
+    public static InputStream getFileStream(File file) {
+        try {
+            return new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("problemOccurred"));
+            Main.errorAlert.showAndWait();
+            System.exit(-1);
+            return null;
+        }
+    }
+
     private void runMenuForm() {
         try {
-            Parent menuRoot = FXMLLoader.load(getClass().getResource("view/MenuForm.fxml"), Repository.namesBundle);
+            FXMLLoader loader = new FXMLLoader(getResource("/res/fxml_views/MenuForm.fxml"), Repository.namesBundle);
+            Parent menuRoot = loader.load();
             Scene menuScene = new Scene(menuRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
+            formMap.put("MenuForm", new Pair<>(menuRoot, loader.getController()));
+
             stage.setTitle(instance.getNamesBundleValue("title"));
-            // TODO: 16.04.2020 do you want your app to be resizable? also think about the image bg
             stage.setResizable(false);
             stage.setScene(menuScene);
             stage.show();
-
-            formMap.put("MenuForm", menuRoot);
         } catch (Exception e) {
             logger.log(Level.ERROR, "Error while loading menu window", e);
-            System.exit(0);
+            Main.errorAlert.setContentText(instance.getNamesBundleValue("problemOccurred"));
+            Main.errorAlert.showAndWait();
+            System.exit(-1);
         }
     }
 }

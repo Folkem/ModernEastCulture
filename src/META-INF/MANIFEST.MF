@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.folva.moderneastculture.Main
+Class-Path: ModernEastCulture_jar.jar
+

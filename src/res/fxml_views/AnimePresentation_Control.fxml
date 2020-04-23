@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fx:id="ivAnimeImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+    <Label fx:id="lAnimeName" alignment="CENTER" layoutX="100.0" prefHeight="100.0" prefWidth="300.0" text="Якась українська назва аніме" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <font>
+            <Font name="Century Gothic Bold Italic" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="lAnimePremiereYear" alignment="CENTER" layoutX="400.0" prefHeight="100.0" prefWidth="49.0" text="2012" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <font>
+            <Font name="Calibri Bold" size="20.0" />
+        </font>
+    </Label>
+    <Button fx:id="bDeleteAnime" graphicTextGap="0.0" layoutX="449.0" mnemonicParsing="false" onAction="#onBDeleteAnimeClick" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: rgba(255,0,0,1); -fx-background-radius: 0;" text="X" textFill="WHITE">
+        <font>
+            <Font name="Calibri Bold" size="16.0" />
+        </font>
+    </Button>
+    <Button fx:id="bEditAnime" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="449.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBEditAnimeClick" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: rgba(180,180,180,0); -fx-background-image: url(/res/img/ic_edit.png);             -fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: cover;">
+        <font>
+            <Font name="Calibri Bold" size="16.0" />
+        </font>
+    </Button>
+</Pane>

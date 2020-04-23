@@ -11,18 +11,24 @@ public class Anime {
         SERIES("series"),
         MOVIE("movie");
 
-        public final String type;
+        public final String name;
 
-        Type(String type) {
-            this.type = type;
+        Type(String name) {
+            this.name = name;
         }
     }
 
     public enum Source {
-        ORIGINAL,
-        MANGA,
-        RANOBE,
-        OTHER
+        ORIGINAL("original"),
+        MANGA("manga"),
+        RANOBE("ranobe"),
+        OTHER("other");
+
+        public final String name;
+
+        Source(String name) {
+            this.name = name;
+        }
     }
 
     private int id;

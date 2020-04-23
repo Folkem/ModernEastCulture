@@ -1,46 +1,53 @@
 package com.folva.moderneastculture.model;
 
+import com.folva.moderneastculture.Main;
 import com.folva.moderneastculture.model.dto.*;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
+import java.util.Date;
 import java.util.prefs.Preferences;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"RedundantIfStatement", "UnnecessaryLocalVariable"})
+@SuppressWarnings({"RedundantIfStatement"})
 public class Repository {
 
     private static final Logger logger = LogManager.getLogger(Repository.class);
     private static final Preferences prefs = Preferences.userRoot().node("com/folva/moderneastculture/config");
-    private static final String CONNECTION_URL = "jdbc:sqlite:modern_east_culture.db3";
     private static final String PREFS_ADMIN_LOGIN = "superadmin_login";
     private static final String PREFS_ADMIN_PASSWORD = "superadmin_password";
     private static final String DEFAULT_ADMIN_LOGIN = "somebody@oncetold.me";
     private static final String DEFAULT_ADMIN_PASSWORD = "simplePassword";
+    private static final long MAX_CACHED_TIME;
 
     public static final Repository instance;
     public static final int FIRST_ANIME_PREMIERE_YEAR = 1958;
     public static final int FIRST_MANGA_PREMIERE_YEAR = 1900;
     public static final ResourceBundle namesBundle;
     public static final SimpleBooleanProperty adminIsAuthorizedProperty;
+    public static final String DB_IMAGES_FOLDER = "db_img";
 
     private static String ADMIN_LOGIN;
     private static String ADMIN_PASSWORD;
 
     private final DbRepository dbRepository;
+
+    private Pair<ArrayList<Genre>, Long> cachedGenres;
+    private Pair<ArrayList<Anime>, Long> cachedAnime;
+    private Pair<ArrayList<Pair<Anime, Genre>>, Long> cachedAnimeGenreMap;
+    private Pair<ArrayList<Pair<Integer, String>>, Long> cachedAnimeImagePaths;
+//    private Pair<>
 
     static {
         instance = new Repository();
@@ -87,6 +94,8 @@ public class Repository {
         });
 
         adminIsAuthorizedProperty = new SimpleBooleanProperty(false);
+
+        MAX_CACHED_TIME = Duration.ofMinutes(15).toMillis();
     }
 
     private Repository() {
@@ -146,18 +155,56 @@ public class Repository {
     }
 
     public ArrayList<Genre> getGenres() {
-        return dbRepository.getGenres();
+        long currentTimeMillis = System.currentTimeMillis();
+
+        if (cachedGenres == null ||
+            currentTimeMillis - cachedGenres.getValue() > MAX_CACHED_TIME) {
+            cachedGenres = new Pair<>(dbRepository.getGenres(), currentTimeMillis);
+        }
+
+        return cachedGenres.getKey();
     }
 
     public ArrayList<Anime> getAnimes() {
-        return dbRepository.getAnimes();
+        long currentTimeMillis = System.currentTimeMillis();
+
+        if (cachedAnime == null ||
+            currentTimeMillis - cachedAnime.getValue() > MAX_CACHED_TIME) {
+            cachedAnime = new Pair<>(dbRepository.getAnimes(), currentTimeMillis);
+        }
+
+        return cachedAnime.getKey();
     }
 
     public ArrayList<Pair<Anime, Genre>> getAnimeGenreMap() {
-        return dbRepository.getAnimeGenreMap();
+        long currentTimeMillis = System.currentTimeMillis();
+
+        if (cachedAnimeGenreMap == null ||
+            currentTimeMillis - cachedAnimeGenreMap.getValue() > MAX_CACHED_TIME) {
+            cachedAnimeGenreMap = new Pair<>(dbRepository.getAnimeGenreMap(), currentTimeMillis);
+        }
+
+        return cachedAnimeGenreMap.getKey();
+    }
+
+    public ArrayList<Pair<Integer, String>> getAnimeImagePaths() {
+        long currentTimeMillis = System.currentTimeMillis();
+
+        if (cachedAnimeImagePaths == null ||
+            currentTimeMillis - cachedAnimeImagePaths.getValue() > MAX_CACHED_TIME) {
+            cachedAnimeImagePaths = new Pair<>(dbRepository.getAnimeImagePaths(), currentTimeMillis);
+        }
+
+        return cachedAnimeImagePaths.getKey();
+    }
+
+    public void deleteAnimeFromDb(Anime key) {
+        dbRepository.deleteAnime(key);
     }
 
     private static final class DbRepository {
+
+        private static final String CONNECTION_URL = "jdbc:sqlite:modern_east_culture.db3";
 
         private enum GenreFields {
             ID("id", 1),
@@ -272,8 +319,29 @@ public class Repository {
                 return columnName;
             }
         }
+        private enum AnimeGalleryFields {
+            ID_ANIME("id_anime", 1),
+            IMG_PATH("img_path", 2);
+
+            public final String columnName;
+            public final int columnIndex;
+
+            AnimeGalleryFields(String columnName, int columnIndex) {
+                this.columnName = columnName;
+                this.columnIndex = columnIndex;
+            }
+
+            @Override
+            public String toString() {
+                return columnName;
+            }
+        }
 
         public Connection connection;
+
+        /*
+        * Connection/disconnection
+        */
 
         public void connect() {
             try {
@@ -293,6 +361,10 @@ public class Repository {
                 logger.error("Database wasn't disconnected: ", e);
             }
         }
+
+        /*
+        * Methods which return the output of "select" statements
+        */
 
         public ArrayList<Anime> getAnimes() {
             ArrayList<Anime> animeList = new ArrayList<>();
@@ -354,6 +426,8 @@ public class Repository {
                 resultSet.close();
             } catch (SQLException | IllegalArgumentException e) {
                 logger.error("Error while getting anime from db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseImportError"));
+                Main.errorAlert.show();
             }
 
             setAnimeAltNames(animeList);
@@ -375,6 +449,8 @@ public class Repository {
                 resultSet.close();
             } catch (SQLException e) {
                 logger.error("Error while getting anime alt names from db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseImportError"));
+                Main.errorAlert.show();
             }
 
             animeList.forEach(anime -> allAltNames.forEach(altName -> {
@@ -402,6 +478,8 @@ public class Repository {
                 resultSet.close();
             } catch (SQLException | IllegalArgumentException e) {
                 logger.error("Error while getting authors from db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseImportError"));
+                Main.errorAlert.show();
             }
 
             return authors;
@@ -421,6 +499,8 @@ public class Repository {
                 resultSet.close();
             } catch (SQLException e) {
                 logger.error("Error while getting age ratings from db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseImportError"));
+                Main.errorAlert.show();
             }
 
             return ageRatings;
@@ -440,7 +520,8 @@ public class Repository {
                 resultSet.close();
             } catch (SQLException e) {
                 logger.error("Error while getting genres from db: ", e);
-                // TODO: 17.04.2020 warning window to user
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseImportError"));
+                Main.errorAlert.show();
             }
 
             return genres;
@@ -467,9 +548,49 @@ public class Repository {
                 resultSet.close();
             } catch (SQLException e) {
                 logger.error("Error while getting anime genre connections: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseImportError"));
+                Main.errorAlert.show();
             }
 
             return animeGenres;
         }
+
+        public ArrayList<Pair<Integer, String>> getAnimeImagePaths() {
+            ArrayList<Pair<Integer, String>> animeImagePaths = new ArrayList<>();
+
+            try {
+                ResultSet resultSet = connection.createStatement().executeQuery("select * from anime_gallery");
+                while (resultSet.next()) {
+                    int animeId = resultSet.getInt(AnimeGalleryFields.ID_ANIME.columnName);
+                    String imgPath = resultSet.getString(AnimeGalleryFields.IMG_PATH.columnName);
+                    Pair<Integer, String> newPair = new Pair<>(animeId, imgPath);
+                    animeImagePaths.add(newPair);
+                }
+                resultSet.close();
+            } catch (SQLException e) {
+                logger.error("Error while getting anime image paths from db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseImportError"));
+                Main.errorAlert.show();
+            }
+
+            return animeImagePaths;
+        }
+
+        /*
+        * Methods which drop data in the database
+        */
+
+        public void deleteAnime(Anime key) {
+//            try {
+//                int animeId = key.getId();
+//                PreparedStatement preparedStatement = connection.prepareStatement("drop from anime where id = ?");
+//                preparedStatement.setInt(AnimeFields.ID.columnIndex, animeId);
+//                preparedStatement.execute();
+//            } catch (SQLException e) {
+//                logger.error("Error while deleting anime from db: ", e);
+//            }
+        }
+
+
     }
 }

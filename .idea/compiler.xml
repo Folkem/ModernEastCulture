@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac" />
-    <resourceExtensions />
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/res/db_img" includeSubdirectories="true" />
+      <file url="file://$PROJECT_DIR$/res/exceptions.log" />
+      <file url="file://$PROJECT_DIR$/res/modern_east_culture.db3" />
+    </excludeFromCompile>
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
       <entry name="!?*.form" />
@@ -13,11 +16,5 @@
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
-    <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-    </annotationProcessing>
   </component>
 </project>
-
