@@ -3,6 +3,7 @@ package com.folva.moderneastculture.controller;
 import com.folva.moderneastculture.Main;
 import com.folva.moderneastculture.model.Repository;
 import com.folva.moderneastculture.model.dto.Anime;
+import com.folva.moderneastculture.model.dto.OpenPair;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -17,9 +18,18 @@ import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.folva.moderneastculture.model.Repository.DB_IMAGES_FOLDER;
 
 public class AnimePresentationControl extends Pane implements Initializable {
 
@@ -38,7 +48,7 @@ public class AnimePresentationControl extends Pane implements Initializable {
 
     public Logger logger;
 
-    private SimpleObjectProperty<Pair<Boolean, Anime>> editingObjectReference;
+    private SimpleObjectProperty<OpenPair<Boolean, Anime>> editingObjectReference;
     private boolean isLoaded = false;
     private Anime currentAnime = null;
 
@@ -65,7 +75,7 @@ public class AnimePresentationControl extends Pane implements Initializable {
         lAnimePremiereYear.setText(String.valueOf(anime.getPremiereYear()));
     }
 
-    public void setEditingObjectReference(SimpleObjectProperty<Pair<Boolean, Anime>> reference) {
+    public void setEditingObjectReference(SimpleObjectProperty<OpenPair<Boolean, Anime>> reference) {
         editingObjectReference = reference;
     }
 
@@ -86,7 +96,7 @@ public class AnimePresentationControl extends Pane implements Initializable {
 
     @FXML
     private void onBEditAnimeClick() {
-        editingObjectReference.setValue(new Pair<>(true, currentAnime));
+        editingObjectReference.setValue(new OpenPair<>(true, currentAnime));
     }
 
     @SuppressWarnings("DuplicatedCode")
@@ -104,6 +114,25 @@ public class AnimePresentationControl extends Pane implements Initializable {
             ivAnimeImage.setX((ivAnimeImage.getFitWidth() - width) / 2);
             ivAnimeImage.setY((ivAnimeImage.getFitHeight() - height) / 2);
 
+        }
+    }
+
+    public void loadImage() {
+        ArrayList<Pair<Integer, String>> animeImages = Repository.instance.getAnimeImagePaths(true);
+        Optional<Pair<Integer, String>> optionalAnimeImagePair = animeImages.stream()
+                .filter(animeImagePair -> animeImagePair.getKey() == currentAnime.getId()).findFirst();
+        if (optionalAnimeImagePair.isPresent() &&
+                Files.exists(Paths.get(DB_IMAGES_FOLDER, optionalAnimeImagePair.get().getValue()))) {
+            Path imagePath = Paths.get(DB_IMAGES_FOLDER, optionalAnimeImagePair.get().getValue());
+            File file = imagePath.toFile();
+            InputStream fileStream = Main.getFileStream(file);
+            ivAnimeImage.setImage(new Image(fileStream));
+            centerImage();
+            try {
+                fileStream.close();
+            } catch (IOException e) {
+                logger.error("Error while closing the file stream: ", e);
+            }
         }
     }
 }

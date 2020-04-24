@@ -14,8 +14,8 @@
 
 <AnchorPane prefHeight="450.0" prefWidth="800.0" styleClass="editForm" stylesheets="@/res/img/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.EditAnimeController">
 
-    <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="422.0" prefWidth="772.0" style="-fx-background-color: rgba(233,233,233,0.8);" stylesheets="@/res/img/style.css" vvalue="1.0">
-        <Pane maxHeight="1.7976931348623157E308" prefHeight="800.0" prefWidth="753.0">
+    <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="422.0" prefWidth="772.0" style="-fx-background-color: rgba(233,233,233,0.8);" stylesheets="@/res/img/style.css" vvalue="0.46">
+        <Pane maxHeight="1.7976931348623157E308" prefHeight="1270.0" prefWidth="753.0">
             <ImageView fx:id="ivFirstImage" fitHeight="300.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@/res/img/no_image.jpg" />
             </ImageView>
@@ -86,12 +86,12 @@
                 </font>
             </Label>
             <ListView fx:id="lvPremiereSeasons" layoutX="460.0" layoutY="450.0" opacity="0.8" prefHeight="150.0" prefWidth="283.0" />
-            <Label alignment="CENTER" layoutX="250.0" layoutY="400.0" prefHeight="50.0" prefWidth="200.0" text="%author">
+            <Label alignment="CENTER" layoutX="250.0" layoutY="520.0" prefHeight="50.0" prefWidth="200.0" text="%type">
                 <font>
                     <Font name="Century Gothic Bold Italic" size="24.0" />
                 </font>
             </Label>
-            <ListView fx:id="lvTypes" layoutX="250.0" layoutY="450.0" opacity="0.8" prefHeight="150.0" prefWidth="200.0" />
+            <ListView fx:id="lvTypes" layoutX="250.0" layoutY="570.0" opacity="0.8" prefHeight="70.0" prefWidth="200.0" />
             <ListView fx:id="lvSources" layoutX="10.0" layoutY="450.0" opacity="0.8" prefHeight="150.0" prefWidth="230.0" />
             <Label alignment="CENTER" layoutX="10.0" layoutY="400.0" prefHeight="50.0" prefWidth="230.0" text="%source">
                 <font>
@@ -110,12 +110,43 @@
                 </font>
             </Label>
             <ListView fx:id="lvAgeRatings" layoutX="10.0" layoutY="650.0" opacity="0.8" prefHeight="150.0" prefWidth="230.0" />
-            <Label alignment="CENTER" layoutX="250.0" layoutY="600.0" prefHeight="50.0" prefWidth="200.0" text="%status">
+            <Label alignment="CENTER" layoutX="250.0" layoutY="640.0" prefHeight="50.0" prefWidth="200.0" text="%status">
                 <font>
                     <Font name="Century Gothic Bold Italic" size="24.0" />
                 </font>
             </Label>
-            <ListView fx:id="lvStatus" layoutX="250.0" layoutY="650.0" opacity="0.8" prefHeight="150.0" prefWidth="200.0" />
+            <ListView fx:id="lvStatus" layoutX="250.0" layoutY="690.0" opacity="0.8" prefHeight="110.0" prefWidth="200.0" />
+            <Pane layoutY="850.0" prefHeight="350.0" prefWidth="753.0" style="-fx-background-color: rgba(233,233,233,0.5);">
+                <children>
+                    <ImageView fx:id="ivCurrentGalleryImage" fitHeight="350.0" fitWidth="380.0" layoutX="187.0" pickOnBounds="true" preserveRatio="true" />
+                </children>
+            </Pane>
+            <Button fx:id="bPreviousImage" layoutX="13.0" layoutY="1221.0" mnemonicParsing="false" onAction="#onBPreviousImageClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: rgba(100, 150, 120, 0.5); -fx-background-radius: 17;" text="%previous">
+                <font>
+                    <Font name="Century Gothic Bold" size="16.0" />
+                </font>
+            </Button>
+            <Button fx:id="bNextImage" layoutX="133.0" layoutY="1221.0" mnemonicParsing="false" onAction="#onBNextImageClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: rgba(100, 150, 120, 0.5); -fx-background-radius: 17;" text="%next">
+                <font>
+                    <Font name="Century Gothic Bold" size="16.0" />
+                </font>
+            </Button>
+            <Button fx:id="bDeleteImage" layoutX="252.0" layoutY="1221.0" mnemonicParsing="false" onAction="#onBDeleteImageClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: rgba(100, 150, 120, 0.5); -fx-background-radius: 17;" text="%delete">
+                <font>
+                    <Font name="Century Gothic Bold" size="16.0" />
+                </font>
+            </Button>
+            <Button layoutX="372.0" layoutY="1221.0" mnemonicParsing="false" onAction="#onBAddImageClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: rgba(100, 150, 120, 0.5); -fx-background-radius: 17;" text="%add">
+                <font>
+                    <Font name="Century Gothic Bold" size="16.0" />
+                </font>
+            </Button>
+         <ListView fx:id="lvAuthors" layoutX="250.0" layoutY="450.0" opacity="0.8" prefHeight="70.0" prefWidth="200.0" />
+         <Label alignment="CENTER" layoutX="250.0" layoutY="400.0" prefHeight="50.0" prefWidth="200.0" text="%author">
+            <font>
+               <Font name="Century Gothic Bold Italic" size="24.0" />
+            </font>
+         </Label>
         </Pane>
     </ScrollPane>
 </AnchorPane>

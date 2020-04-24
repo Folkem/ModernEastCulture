@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" styleClass="viewForm" stylesheets="@/res/img/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.AnimeController">
+<AnchorPane prefHeight="450.0" prefWidth="800.0" styleClass="viewForm" stylesheets="@/res/img/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.AnimeController">
     <ScrollPane fx:id="spAnimeList" layoutX="22.0" layoutY="59.0" prefHeight="376.0" prefWidth="500.0" style="-fx-background-color: rgba(255,255,255,0.2);" vbarPolicy="ALWAYS">
         <Pagination fx:id="animePagination" prefWidth="481.0" style="-fx-background-color: rgba(0,100,0,0);" />
     </ScrollPane>
-    <ScrollPane layoutX="526.0" layoutY="59.0" prefHeight="376.0" prefWidth="262.0" style="-fx-background-color: rgba(255,255,255,0.4);">
+    <ScrollPane layoutX="526.0" layoutY="59.0" prefHeight="376.0" prefWidth="262.0" style="-fx-background-color: rgba(255,255,255,0.4);" vvalue="1.0">
         <Pane prefWidth="243.0">
             <ListView fx:id="lvGenres" layoutY="34.0" prefHeight="120.0" prefWidth="243.0">
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>
             </ListView>
-            <Label prefHeight="34.0" prefWidth="243.0" text="Жанри" />
-            <Label layoutY="154.0" prefHeight="34.0" prefWidth="243.0" text="Тип аниме" />
+            <Label prefHeight="34.0" prefWidth="243.0" text="%genres" />
+            <Label layoutY="154.0" prefHeight="34.0" prefWidth="243.0" text="%type" />
             <ChoiceBox fx:id="cbAnimeTypes" layoutY="188.0" prefWidth="243.0" />
-            <Label layoutY="213.0" prefHeight="34.0" prefWidth="243.0" text="Статус" />
+            <Label layoutY="219.0" prefHeight="28.0" prefWidth="243.0" text="%status" />
             <ChoiceBox fx:id="cbAnimeStatuses" layoutY="247.0" prefWidth="243.0" />
-            <Label layoutY="272.0" prefHeight="34.0" prefWidth="243.0" text="Год" />
-            <TextField fx:id="tbYearFrom" layoutY="306.0" prefHeight="31.0" prefWidth="120.0" promptText="от" />
-            <TextField fx:id="tbYearTo" layoutX="123.0" layoutY="306.0" prefHeight="31.0" prefWidth="120.0" promptText="до" />
-            <Label layoutY="336.0" prefHeight="34.0" prefWidth="243.0" text="Возрастной рейтинг" />
+            <Label layoutY="277.0" prefHeight="29.0" prefWidth="243.0" text="%year" />
+            <TextField fx:id="tbYearFrom" layoutY="306.0" prefHeight="31.0" prefWidth="120.0" promptText="%yearFrom" />
+            <TextField fx:id="tbYearTo" layoutX="123.0" layoutY="306.0" prefHeight="31.0" prefWidth="120.0" promptText="%yearTo" />
+            <Label layoutY="336.0" prefHeight="34.0" prefWidth="243.0" text="%ageRating" />
             <ChoiceBox fx:id="cbAgeRatings" layoutY="369.0" prefWidth="243.0" />
-            <Button layoutY="417.0" mnemonicParsing="false" onAction="#onBFilter" prefHeight="40.0" prefWidth="243.0" text="Искать">
+            <Button layoutY="417.0" mnemonicParsing="false" onAction="#onBFilter" prefHeight="40.0" prefWidth="243.0" text="%search">
             <font>
                <Font name="Century Gothic Bold" size="20.0" />
             </font></Button>
         </Pane>
     </ScrollPane>
-    <TextField fx:id="tbAnimeName" layoutX="22.0" prefHeight="54.0" prefWidth="766.0" promptText="НАЙТИ АНИМЕ ПО НАЗВАНИЮ">
+    <TextField fx:id="tbAnimeName" layoutX="22.0" prefHeight="54.0" prefWidth="766.0" promptText="%findAnimeByName">
         <font>
             <Font name="Monospaced Italic" size="24.0" />
         </font>
@@ -48,4 +57,9 @@
             </ImageView>
         </graphic>
     </Button>
+   <Button fx:id="bAddNewAnime" layoutX="22.0" mnemonicParsing="false" onAction="#onBAddNewAnimeClick" prefHeight="54.0" prefWidth="54.0" style="-fx-background-color: rgba(50, 200, 75, 0.8); -fx-background-radius: 27;" text="+" visible="false">
+      <font>
+         <Font name="Consolas" size="24.0" />
+      </font>
+   </Button>
 </AnchorPane>

@@ -5,9 +5,9 @@ public enum Status {
     ONGOING("ongoing"),
     FINISHED("finished");
 
-    public final String type;
+    public final String name;
 
-    Status(String type) {
-        this.type = type;
+    Status(String name) {
+        this.name = name;
     }
 }

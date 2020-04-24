@@ -29,9 +29,6 @@ public class MenuController implements Initializable {
     @FXML
     private TabPane tabPane;
 
-    public MenuController() {
-    }
-
     @FXML
     private void adminHasAuthorized() {
         logger.info("Admin has logged in!");

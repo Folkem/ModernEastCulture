@@ -5,6 +5,7 @@ import com.folva.moderneastculture.model.Repository;
 import com.folva.moderneastculture.model.dto.*;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.beans.InvalidationListener;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -12,23 +13,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
-import static com.folva.moderneastculture.model.Repository.DB_IMAGES_FOLDER;
 
 public class AnimeController implements Initializable {
 
@@ -55,12 +48,13 @@ public class AnimeController implements Initializable {
     private Pagination animePagination;
     @FXML
     private TextField tbAnimeName;
+    @FXML
+    private Button bAddNewAnime;
 
-    private final ArrayList<AnimePair> animeList = new ArrayList<>();
-    private final ArrayList<Pair<Integer, String>> animeImages = new ArrayList<>();
-    private final SimpleObjectProperty<Pair<Boolean, Anime>> editingObject = new SimpleObjectProperty<>();
+    private final ArrayList<OpenPair<Anime, AnimePresentationControl>> animeList = new ArrayList<>();
+    private final SimpleObjectProperty<OpenPair<Boolean, Anime>> editingObject = new SimpleObjectProperty<>();
 
-    private ObservableListWrapper<AnimePair> filteredAnimeList;
+    private ObservableListWrapper<OpenPair<Anime, AnimePresentationControl>> filteredAnimeList;
     private Tab tabAnime;
 
     @Override
@@ -95,7 +89,36 @@ public class AnimeController implements Initializable {
                 tabAnime.setContent(editPane);
             } else {
                 Parent animeContentPane = Main.getForm("AnimeForm");
+                importAnime();
                 tabAnime.setContent(animeContentPane);
+            }
+        });
+
+        animeList.forEach(animePair -> {
+            Anime anime = animePair.getKey();
+            anime.addInvalidationListener(observable -> {
+                AnimePresentationControl value = animePair.getValue();
+                value.setAnime(anime);
+                value.loadImage();
+            });
+        });
+
+        bAddNewAnime.visibleProperty().bind(Repository.adminIsAuthorizedProperty);
+        tbAnimeName.prefWidthProperty().bind(new DoubleBinding() {
+
+            {
+                bind(Repository.adminIsAuthorizedProperty);
+            }
+
+            @Override
+            protected double computeValue() {
+                if (Repository.adminIsAuthorizedProperty.get()) {
+                    tbAnimeName.setLayoutX(88);
+                    return 700;
+                } else {
+                    tbAnimeName.setLayoutX(22);
+                    return 766;
+                }
             }
         });
     }
@@ -108,10 +131,10 @@ public class AnimeController implements Initializable {
             final int controlCountOnTheLastPage = filteredAnimeList.size() - pageIndex * ANIME_CONTROLS_PER_PAGE;
             final int startAnimeIndex = pageIndex * ANIME_CONTROLS_PER_PAGE;
             final int endAnimeIndex = startAnimeIndex + Math.min(ANIME_CONTROLS_PER_PAGE, controlCountOnTheLastPage);
-            ArrayList<AnimePair> animeListToPresent = new ArrayList<>(
+            ArrayList<OpenPair<Anime, AnimePresentationControl>> animeListToPresent = new ArrayList<>(
                     filteredAnimeList.subList(startAnimeIndex, endAnimeIndex));
             ArrayList<AnimePresentationControl> animeControls = new ArrayList<>();
-            for (AnimePair animePair : animeListToPresent) {
+            for (OpenPair<Anime, AnimePresentationControl> animePair : animeListToPresent) {
                 if (animePair.getValue() != null) {
                     animeControls.add(animePair.getValue());
                     continue;
@@ -122,15 +145,7 @@ public class AnimeController implements Initializable {
                 animeControl.logger = logger;
                 animeControl.load();
                 animeControl.setAnime(anime);
-                Optional<Pair<Integer, String>> optionalAnimeImagePair = animeImages.stream()
-                        .filter(animeImagePair -> animeImagePair.getKey() == anime.getId()).findFirst();
-                if (optionalAnimeImagePair.isPresent() &&
-                    Files.exists(Paths.get(DB_IMAGES_FOLDER, optionalAnimeImagePair.get().getValue()))) {
-                    Path imagePath = Paths.get(DB_IMAGES_FOLDER, optionalAnimeImagePair.get().getValue());
-                    File file = imagePath.toFile();
-                    animeControl.ivAnimeImage.setImage(new Image(Main.getFileStream(file)));
-                    animeControl.centerImage();
-                }
+                animeControl.loadImage();
                 animeControl.isDeleted.addListener(observable -> {
                     logger.info("Anime: " + anime.getName() + " was deleted");
                     animeList.remove(animePair);
@@ -163,14 +178,13 @@ public class AnimeController implements Initializable {
     }
 
     private void importAnime() {
-        ArrayList<Anime> animes = Repository.instance.getAnimes();
+        ArrayList<Anime> animes = Repository.instance.getAnimes(true);
         animeList.clear();
-        animeList.addAll(animes.stream().map(anime -> new AnimePair(anime, null))
+        animeList.addAll(animes.stream().map(anime ->
+                new OpenPair<Anime, AnimePresentationControl>(anime, null))
                 .collect(Collectors.toCollection(ArrayList::new)));
         filteredAnimeList = new ObservableListWrapper<>(new ArrayList<>());
         filteredAnimeList.addAll(animeList);
-        animeImages.clear();
-        animeImages.addAll(Repository.instance.getAnimeImagePaths());
     }
 
     private void setAgeRatings() {
@@ -212,7 +226,7 @@ public class AnimeController implements Initializable {
 
     private void setUpGenres() {
         lvGenres.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        lvGenres.getItems().addAll(Repository.instance.getGenres().stream().map(genre -> genre.name)
+        lvGenres.getItems().addAll(Repository.instance.getGenres(false).stream().map(genre -> genre.name)
                 .collect(Collectors.toCollection(ArrayList::new)));
     }
 
@@ -222,7 +236,7 @@ public class AnimeController implements Initializable {
 
         filteredAnimeList.clear();
 
-        ArrayList<Pair<Anime, Genre>> animeGenreMap = Repository.instance.getAnimeGenreMap();
+        ArrayList<Pair<Anime, Genre>> animeGenreMap = Repository.instance.getAnimeGenreMap(true);
 
         ArrayList<String> selectedGenres = new ArrayList<>(lvGenres.getSelectionModel().getSelectedItems());
         String selectedType = cbAnimeTypes.getSelectionModel().getSelectedItem();
@@ -255,7 +269,7 @@ public class AnimeController implements Initializable {
 
             if (selectedStatus == null ||
                     selectedStatus.equals(Repository.instance.getNamesBundleValue("ignoreValue")) ||
-                    selectedStatus.equals(Repository.instance.getNamesBundleValue(anime.getStatus().type)))
+                    selectedStatus.equals(Repository.instance.getNamesBundleValue(anime.getStatus().name)))
                 correctStatus = true;
 
             if (anime.getPremiereYear() >= selectedYearFrom && anime.getPremiereYear() <= selectedYearTo)
@@ -263,7 +277,7 @@ public class AnimeController implements Initializable {
 
             if (selectedAgeRating == null ||
                     selectedAgeRating.equals(Repository.instance.getNamesBundleValue("ignoreValue")) ||
-                    selectedAgeRating.equals(anime.getRating().name))
+                    selectedAgeRating.equals(anime.getAgeRating().name))
                 correctAgeRating = true;
 
             return containGenre && correctType && correctStatus && correctYear && correctAgeRating;
@@ -301,5 +315,10 @@ public class AnimeController implements Initializable {
                 .collect(Collectors.toCollection(ArrayList::new)));
 
         filteredAnimeList.forEach(anime -> System.out.println(anime.getKey().getName()));
+    }
+
+    @FXML
+    private void onBAddNewAnimeClick() {
+        editingObject.set(new OpenPair<>(true, null));
     }
 }

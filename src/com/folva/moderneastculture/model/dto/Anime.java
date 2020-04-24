@@ -1,6 +1,8 @@
 package com.folva.moderneastculture.model.dto;
 
 import com.folva.moderneastculture.model.Repository;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -38,14 +40,26 @@ public class Anime {
     private String description;
     private int episodeCount;
     private Source source;
-    private AgeRating rating;
+    private AgeRating ageRating;
     private int premiereYear;
     private YearSeason premiereSeason;
     private Status status;
     private ArrayList<String> altNames;
 
+    private final ArrayList<InvalidationListener> changeListeners;
+
     private Anime() {
         altNames = new ArrayList<>();
+        changeListeners = new ArrayList<>();
+    }
+
+    public void invalidate() {
+        changeListeners.forEach(invalidationListener ->
+                invalidationListener.invalidated(new SimpleObjectProperty<>(this)));
+    }
+
+    public void addInvalidationListener(InvalidationListener listener) {
+        changeListeners.add(listener);
     }
 
     public int getId() {
@@ -104,12 +118,12 @@ public class Anime {
         this.source = source;
     }
 
-    public AgeRating getRating() {
-        return rating;
+    public AgeRating getAgeRating() {
+        return ageRating;
     }
 
-    public void setRating(AgeRating rating) {
-        this.rating = rating;
+    public void setAgeRating(AgeRating rating) {
+        this.ageRating = rating;
     }
 
     public int getPremiereYear() {
@@ -191,8 +205,8 @@ public class Anime {
             return this;
         }
 
-        public Builder setRating(AgeRating rating) {
-            anime.rating = rating;
+        public Builder setAgeRating(AgeRating rating) {
+            anime.ageRating = rating;
             return this;
         }
 
@@ -236,7 +250,7 @@ public class Anime {
         boolean sameDescription = (Objects.equals(description, anime.description));
         boolean sameEpisodeCount = (episodeCount == anime.episodeCount);
         boolean sameSource = (Objects.equals(source, anime.source));
-        boolean sameRating = (Objects.equals(rating, anime.rating));
+        boolean sameRating = (Objects.equals(ageRating, anime.ageRating));
         boolean samePremiereYear = (premiereYear == anime.premiereYear);
         boolean samePremiereSeason = (Objects.equals(premiereSeason, anime.premiereSeason));
         boolean sameStatus = (Objects.equals(status, anime.status));

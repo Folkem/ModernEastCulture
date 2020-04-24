@@ -7,17 +7,19 @@ import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.sql.*;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
-import java.util.Date;
 import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings({"RedundantIfStatement"})
@@ -45,9 +47,9 @@ public class Repository {
 
     private Pair<ArrayList<Genre>, Long> cachedGenres;
     private Pair<ArrayList<Anime>, Long> cachedAnime;
+    private Pair<ArrayList<Author>, Long> cachedAuthors;
     private Pair<ArrayList<Pair<Anime, Genre>>, Long> cachedAnimeGenreMap;
     private Pair<ArrayList<Pair<Integer, String>>, Long> cachedAnimeImagePaths;
-//    private Pair<>
 
     static {
         instance = new Repository();
@@ -154,52 +156,123 @@ public class Repository {
         return namesBundle.getString(key);
     }
 
-    public ArrayList<Genre> getGenres() {
+    public Path imageWasCopied(File sourceFile) {
+        Path destinationFilePath = null;
+
+        String extension = getFileExtension(sourceFile);
+        String randomName = String.valueOf(System.currentTimeMillis())
+                .substring(0, 10).concat(".").concat(extension);
+        File destinationFile = Paths.get(DB_IMAGES_FOLDER, randomName).toFile();
+
+        try {
+            handleDirectoryExistence();
+            destinationFilePath = Files.copy(sourceFile.toPath(), destinationFile.toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.error("Error while copying image file: ", e);
+            Main.warningAlert.setContentText(Repository.instance.getNamesBundleValue("imageCopyError"));
+            Main.warningAlert.show();
+        }
+        return destinationFilePath;
+    }
+
+    public void handleDirectoryExistence() {
+        File directory = Paths.get(DB_IMAGES_FOLDER).toFile();
+        if (!directory.exists()) {
+            try {
+                Files.createDirectory(directory.toPath());
+            } catch (IOException e) {
+                logger.fatal("Error while creating db_img folder: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("imageCopyError"));
+                Main.errorAlert.showAndWait();
+                System.exit(-1);
+            }
+        }
+    }
+
+    public ArrayList<Genre> getGenres(boolean updateCacheAndGetNew) {
         long currentTimeMillis = System.currentTimeMillis();
 
-        if (cachedGenres == null ||
-            currentTimeMillis - cachedGenres.getValue() > MAX_CACHED_TIME) {
+        if (cachedGenres == null || updateCacheAndGetNew ||
+                currentTimeMillis - cachedGenres.getValue() > MAX_CACHED_TIME) {
             cachedGenres = new Pair<>(dbRepository.getGenres(), currentTimeMillis);
         }
 
         return cachedGenres.getKey();
     }
 
-    public ArrayList<Anime> getAnimes() {
+    public ArrayList<Anime> getAnimes(boolean updateCacheAndGetNew) {
         long currentTimeMillis = System.currentTimeMillis();
 
-        if (cachedAnime == null ||
-            currentTimeMillis - cachedAnime.getValue() > MAX_CACHED_TIME) {
+        if (cachedAnime == null || updateCacheAndGetNew ||
+                currentTimeMillis - cachedAnime.getValue() > MAX_CACHED_TIME) {
             cachedAnime = new Pair<>(dbRepository.getAnimes(), currentTimeMillis);
         }
 
         return cachedAnime.getKey();
     }
 
-    public ArrayList<Pair<Anime, Genre>> getAnimeGenreMap() {
+    public ArrayList<Author> getAuthors(boolean updateCacheAndGetNew) {
         long currentTimeMillis = System.currentTimeMillis();
 
-        if (cachedAnimeGenreMap == null ||
-            currentTimeMillis - cachedAnimeGenreMap.getValue() > MAX_CACHED_TIME) {
+        if (cachedAuthors == null || updateCacheAndGetNew ||
+                currentTimeMillis - cachedAuthors.getValue() > MAX_CACHED_TIME) {
+            cachedAuthors = new Pair<>(dbRepository.getAuthors(), currentTimeMillis);
+        }
+
+        return cachedAuthors.getKey();
+    }
+
+    public ArrayList<Pair<Anime, Genre>> getAnimeGenreMap(boolean updateCacheAndGetNew) {
+        long currentTimeMillis = System.currentTimeMillis();
+
+        if (cachedAnimeGenreMap == null || updateCacheAndGetNew ||
+                currentTimeMillis - cachedAnimeGenreMap.getValue() > MAX_CACHED_TIME) {
             cachedAnimeGenreMap = new Pair<>(dbRepository.getAnimeGenreMap(), currentTimeMillis);
         }
 
         return cachedAnimeGenreMap.getKey();
     }
 
-    public ArrayList<Pair<Integer, String>> getAnimeImagePaths() {
+    public ArrayList<Pair<Integer, String>> getAnimeImagePaths(boolean updateCacheAndGetNew) {
         long currentTimeMillis = System.currentTimeMillis();
 
-        if (cachedAnimeImagePaths == null ||
-            currentTimeMillis - cachedAnimeImagePaths.getValue() > MAX_CACHED_TIME) {
+        if (cachedAnimeImagePaths == null || updateCacheAndGetNew ||
+                currentTimeMillis - cachedAnimeImagePaths.getValue() > MAX_CACHED_TIME) {
             cachedAnimeImagePaths = new Pair<>(dbRepository.getAnimeImagePaths(), currentTimeMillis);
         }
 
         return cachedAnimeImagePaths.getKey();
     }
 
+    public void updateAnimeCache() {
+        getGenres(true);
+        getAnimes(true);
+        getAnimeGenreMap(true);
+        getAnimeImagePaths(true);
+    }
+
     public void deleteAnimeFromDb(Anime key) {
         dbRepository.deleteAnime(key);
+    }
+
+    public void updateAnimeGenres(Pair<Anime, ArrayList<Genre>> animeGenres) {
+        dbRepository.updateAnimeGenres(animeGenres);
+    }
+
+    public void updateAnimeImages(Pair<Anime, ArrayList<String>> animeImages) {
+        dbRepository.updateAnimeImages(animeImages);
+    }
+
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        else return "";
+    }
+
+    public void insertNewAnime(Anime newAnime) {
+        dbRepository.insertNewAnime(newAnime);
     }
 
     private static final class DbRepository {
@@ -223,6 +296,7 @@ public class Repository {
                 return columnName;
             }
         }
+
         private enum AnimeFields {
             ID("id", 1),
             ID_AUTHOR("id_author", 2),
@@ -249,6 +323,7 @@ public class Repository {
                 return columnName;
             }
         }
+
         private enum AuthorFields {
             ID("id", 1),
             TYPE("type", 2),
@@ -267,6 +342,7 @@ public class Repository {
                 return columnName;
             }
         }
+
         private enum AgeRatingFields {
             ID("id", 1),
             NAME("name", 2),
@@ -285,6 +361,7 @@ public class Repository {
                 return columnName;
             }
         }
+
         private enum AnimeGenreFields {
             ID_ANIME("id_anime", 1),
             ID_GENRE("id_genre", 2);
@@ -302,6 +379,7 @@ public class Repository {
                 return columnName;
             }
         }
+
         private enum AnimeAltNameFields {
             ID_ANIME("id_anime", 1),
             ALTERNATIVE_NAME("alternative_name", 2);
@@ -319,6 +397,7 @@ public class Repository {
                 return columnName;
             }
         }
+
         private enum AnimeGalleryFields {
             ID_ANIME("id_anime", 1),
             IMG_PATH("img_path", 2);
@@ -340,8 +419,8 @@ public class Repository {
         public Connection connection;
 
         /*
-        * Connection/disconnection
-        */
+         * Connection/disconnection
+         */
 
         public void connect() {
             try {
@@ -363,8 +442,8 @@ public class Repository {
         }
 
         /*
-        * Methods which return the output of "select" statements
-        */
+         * Methods which return the output of "select" statements
+         */
 
         public ArrayList<Anime> getAnimes() {
             ArrayList<Anime> animeList = new ArrayList<>();
@@ -415,7 +494,7 @@ public class Repository {
                             .setDescription(animeDescription)
                             .setEpisodeCount(animeEpisodeCount)
                             .setSource(animeSource)
-                            .setRating(animeAgeRating)
+                            .setAgeRating(animeAgeRating)
                             .setPremiereYear(animePremiereYear)
                             .setPremiereSeason(animePremiereSeason)
                             .setStatus(animeStatus)
@@ -540,6 +619,7 @@ public class Repository {
                     int idGenre = resultSet.getInt(AnimeGenreFields.ID_GENRE.columnName);
                     Optional<Anime> optionalAnime = animes.stream().filter(anime -> anime.getId() == idAnime).findFirst();
                     Optional<Genre> optionalGenre = genres.stream().filter(genre -> genre.id == idGenre).findFirst();
+                    if (!optionalAnime.isPresent() || !optionalGenre.isPresent()) continue;
                     Anime anime = optionalAnime.get();
                     Genre genre = optionalGenre.get();
                     Pair<Anime, Genre> pair = new Pair<>(anime, genre);
@@ -577,20 +657,162 @@ public class Repository {
         }
 
         /*
-        * Methods which drop data in the database
-        */
+         * Methods which drop data in the database
+         */
 
-        public void deleteAnime(Anime key) {
-//            try {
-//                int animeId = key.getId();
-//                PreparedStatement preparedStatement = connection.prepareStatement("drop from anime where id = ?");
-//                preparedStatement.setInt(AnimeFields.ID.columnIndex, animeId);
-//                preparedStatement.execute();
-//            } catch (SQLException e) {
-//                logger.error("Error while deleting anime from db: ", e);
-//            }
+        public void deleteAnime(Anime anime) {
+            try {
+                int animeId = anime.getId();
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from anime where id = ?");
+                preparedStatement.setInt(AnimeFields.ID.columnIndex, animeId);
+                preparedStatement.execute();
+            } catch (SQLException e) {
+                logger.error("Error while deleting anime from db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseDeleteError"));
+                Main.errorAlert.show();
+            }
         }
 
+        /*
+        * Methods which add data in the database
+        */
 
+        public void insertNewAnime(Anime newAnime) {
+            try {
+                int animeId = newAnime.getId();
+                int animeAuthorId = newAnime.getAuthor().getId();
+                String animeType = newAnime.getType().name;
+                String animeName = newAnime.getName();
+                String animeDescription = newAnime.getDescription();
+                int animeEpisodeCount = newAnime.getEpisodeCount();
+                String animeSource = newAnime.getSource().name;
+                int animeAgeRatingId = newAnime.getAgeRating().id;
+                int animePremiereYear = newAnime.getPremiereYear();
+                String animePremiereSeason = newAnime.getPremiereSeason().name;
+                String animeStatus = newAnime.getStatus().name;
+
+                String insertString = "insert into anime values (?,?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement insertStatement = connection.prepareStatement(insertString);
+
+                insertStatement.setInt(1, animeId);
+                insertStatement.setInt(2, animeAuthorId);
+                insertStatement.setString(3, animeType);
+                insertStatement.setString(4, animeName);
+                insertStatement.setString(5, animeDescription);
+                insertStatement.setInt(6, animeEpisodeCount);
+                insertStatement.setString(7, animeSource);
+                insertStatement.setInt(8, animeAgeRatingId);
+                insertStatement.setInt(9, animePremiereYear);
+                insertStatement.setString(10, animePremiereSeason);
+                insertStatement.setString(11, animeStatus);
+
+                insertStatement.execute();
+            } catch (SQLException e) {
+                logger.error("Error while inserting anime in db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseInsertError"));
+                Main.errorAlert.show();
+            }
+        }
+
+        /*
+        * Methods which update (specifically "update" or drop & add) data in the database
+        */
+
+        @SuppressWarnings({"unchecked", "DuplicatedCode"})
+        public void updateAnimeGenres(Pair<Anime, ArrayList<Genre>> animeGenres) {
+            try {
+                ArrayList<Genre> currentAnimeGenres = getAnimeGenreMap().stream().filter(
+                        animeGenrePair -> animeGenrePair.getKey().getId() == animeGenres.getKey().getId())
+                        .map(Pair::getValue)
+                        .collect(Collectors.toCollection(ArrayList::new));
+                ArrayList<Genre> genresToAdd = (ArrayList<Genre>) animeGenres.getValue().clone();
+                genresToAdd.removeIf(genre -> currentAnimeGenres.stream().anyMatch(localGenre ->
+                        localGenre.name.equalsIgnoreCase(genre.name)));
+                ArrayList<Genre> genresToDrop = (ArrayList<Genre>) currentAnimeGenres.clone();
+                genresToDrop.removeIf(genre -> animeGenres.getValue().stream().anyMatch(localGenre ->
+                        localGenre.name.equalsIgnoreCase(genre.name)));
+
+                if (genresToDrop.size() > 0) {
+                    StringBuilder dropGenresBuilder = new StringBuilder("delete from anime_genres where id_anime = ? " +
+                            "and id_genre in (?");
+                    for (int i = 1; i < genresToDrop.size(); i++) {
+                        dropGenresBuilder.append(",?");
+                    }
+                    dropGenresBuilder.append(")");
+                    PreparedStatement preparedDropStatement = connection.prepareStatement(dropGenresBuilder.toString());
+                    preparedDropStatement.setInt(1, animeGenres.getKey().getId());
+                    for (int i = 1; i < genresToDrop.size() + 1; i++) {
+                        preparedDropStatement.setInt(i + 1, genresToDrop.get(i - 1).id);
+                    }
+                    preparedDropStatement.execute();
+                }
+
+                if (genresToAdd.size() > 0) {
+                    StringBuilder addGenresBuilder = new StringBuilder("insert into anime_genres values (?,?)");
+                    for (int i = 1; i < genresToAdd.size(); i++) {
+                        addGenresBuilder.append(",(?,?)");
+                    }
+                    PreparedStatement preparedAddStatement = connection.prepareStatement(addGenresBuilder.toString());
+                    for (int i = 1, j = 1; i < genresToAdd.size() + 1; i++, j += 2) {
+                        preparedAddStatement.setInt(j, animeGenres.getKey().getId());
+                        preparedAddStatement.setInt(j + 1, genresToAdd.get(i - 1).id);
+                    }
+                    preparedAddStatement.execute();
+                }
+
+            } catch (Exception e) {
+                logger.error("Error while updating anime genres in db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseUpdateError"));
+                Main.errorAlert.show();
+            }
+        }
+
+        @SuppressWarnings({"unchecked", "DuplicatedCode"})
+        public void updateAnimeImages(Pair<Anime, ArrayList<String>> animeImages) {
+            try {
+                ArrayList<String> currentAnimeImages = getAnimeImagePaths().stream().filter(
+                        animeImagePair -> animeImagePair.getKey() == animeImages.getKey().getId())
+                        .map(Pair::getValue)
+                        .collect(Collectors.toCollection(ArrayList::new));
+                ArrayList<String> imagesToAdd = (ArrayList<String>) animeImages.getValue().clone();
+                imagesToAdd.removeIf(image -> currentAnimeImages.stream().anyMatch(localImage ->
+                        localImage.equalsIgnoreCase(image)));
+                ArrayList<String> imagesToDrop = (ArrayList<String>) currentAnimeImages.clone();
+                imagesToDrop.removeIf(image -> animeImages.getValue().stream().anyMatch(localImage ->
+                        localImage.equalsIgnoreCase(image)));
+
+                if (imagesToDrop.size() > 0) {
+                    StringBuilder dropImagesBuilder = new StringBuilder("delete from anime_gallery where id_anime = ? " +
+                            "and img_path in (?");
+                    for (int i = 1; i < imagesToDrop.size(); i++) {
+                        dropImagesBuilder.append(",?");
+                    }
+                    dropImagesBuilder.append(")");
+                    PreparedStatement preparedDropStatement = connection.prepareStatement(dropImagesBuilder.toString());
+                    preparedDropStatement.setInt(1, animeImages.getKey().getId());
+                    for (int i = 1; i < imagesToDrop.size() + 1; i++) {
+                        preparedDropStatement.setString(i + 1, imagesToDrop.get(i - 1));
+                    }
+                    preparedDropStatement.execute();
+                }
+
+                if (imagesToAdd.size() > 0) {
+                    StringBuilder addImagesBuilder = new StringBuilder("insert into anime_gallery values (?,?)");
+                    for (int i = 1; i < imagesToAdd.size(); i++) {
+                        addImagesBuilder.append(",(?,?)");
+                    }
+                    PreparedStatement preparedAddStatement = connection.prepareStatement(addImagesBuilder.toString());
+                    for (int i = 1, j = 1; i < imagesToAdd.size() + 1; i++, j += 2) {
+                        preparedAddStatement.setInt(j, animeImages.getKey().getId());
+                        preparedAddStatement.setString(j + 1, imagesToAdd.get(i - 1));
+                    }
+                    preparedAddStatement.execute();
+                }
+            } catch (Exception e) {
+                logger.error("Error while updating anime images in db: ", e);
+                Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("databaseUpdateError"));
+                Main.errorAlert.show();
+            }
+        }
     }
 }
