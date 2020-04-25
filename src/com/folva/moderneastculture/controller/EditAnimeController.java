@@ -28,6 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.folva.moderneastculture.model.Repository.DB_IMAGES_FOLDER;
+import static com.folva.moderneastculture.model.Repository.loadImage;
 
 public class EditAnimeController implements Initializable {
 
@@ -87,8 +88,7 @@ public class EditAnimeController implements Initializable {
 
         if (currentAnime == null) {
             isNew = true;
-            URL resource = Main.getResource("/res/img/no_image.jpg");
-            ivFirstImage.setImage(new Image(resource.toString()));
+            ivFirstImage.setImage(Repository.getNoImageImage());
             return;
         }
 
@@ -102,26 +102,14 @@ public class EditAnimeController implements Initializable {
         this.currentAnimeImagePaths.addAll(currentAnimeImagePaths);
 
         if (currentAnimeImagePaths.isEmpty()) {
-            URL resource = Main.getResource("/res/img/no_image.jpg");
-            ivFirstImage.setImage(new Image(resource.toString()));
+            ivFirstImage.setImage(Repository.getNoImageImage());
         } else {
             String firstImageName = currentAnimeImagePaths.get(0);
-            Path firstImagePath = Paths.get(DB_IMAGES_FOLDER, firstImageName);
-            File firstImage = firstImagePath.toFile();
 
-            Image image;
+            Image image = loadImage(firstImageName);
 
-            if (firstImage.exists()) {
-                InputStream fileStream;
-                fileStream = Main.getFileStream(firstImage);
-                image = new Image(fileStream);
-                try {
-                    fileStream.close();
-                } catch (Exception e) {
-                    logger.error("Error while closing image file stream: ", e);
-                }
-            } else {
-                image = getNoImageImage();
+            if (image == null) {
+                image = Repository.getNoImageImage();
             }
 
             ivFirstImage.setImage(image);
@@ -170,13 +158,13 @@ public class EditAnimeController implements Initializable {
         }
 
         String firstImageName = currentAnimeImagePaths.get(0);
-        Image galleryImage = loadImage(firstImageName);
+        Image galleryImage = Repository.loadImage(firstImageName);
 
         if (galleryImage != null) {
             ivCurrentGalleryImage.setImage(galleryImage);
             centerImage(ivCurrentGalleryImage);
         } else {
-            ivCurrentGalleryImage.setImage(getNoImageImage());
+            ivCurrentGalleryImage.setImage(Repository.getNoImageImage());
         }
     }
 
@@ -242,7 +230,7 @@ public class EditAnimeController implements Initializable {
         String newAuthorString = lvAuthors.getSelectionModel().getSelectedItem();
         Optional<Author> optionalAuthor = Repository.instance.getAuthors(false).stream().filter(author ->
                 author.getName().equalsIgnoreCase(newAuthorString)).findFirst();
-        Author newAuthor = null;
+        Author newAuthor;
         try {
             newAuthor = optionalAuthor.get();
         } catch (Exception e) {
@@ -417,11 +405,6 @@ public class EditAnimeController implements Initializable {
         }
     }
 
-    private Image getNoImageImage() {
-        URL notFoundImageResource = Main.getResource("/res/img/no_image.jpg");
-        return new Image(notFoundImageResource.toString());
-    }
-
     private void setGalleryImage() {
         String imageName = currentAnimeImagePaths.get(currentImageIndex);
         Image image;
@@ -429,12 +412,12 @@ public class EditAnimeController implements Initializable {
         if (cachedGalleryImages.containsKey(imageName)) {
             image = cachedGalleryImages.get(imageName);
         } else {
-            image = loadImage(imageName);
+            image = Repository.loadImage(imageName);
             cachedGalleryImages.put(imageName, image);
         }
 
         if (image == null) {
-            image = getNoImageImage();
+            image = Repository.getNoImageImage();
         }
 
         ivCurrentGalleryImage.setImage(image);
@@ -499,8 +482,8 @@ public class EditAnimeController implements Initializable {
             bDeleteImage.setDisable(true);
             bNextImage.setDisable(true);
             bPreviousImage.setDisable(true);
-            ivCurrentGalleryImage.setImage(getNoImageImage());
-            ivFirstImage.setImage(getNoImageImage());
+            ivCurrentGalleryImage.setImage(Repository.getNoImageImage());
+            ivFirstImage.setImage(Repository.getNoImageImage());
             centerImage(ivCurrentGalleryImage);
             return;
         } else if (currentImageIndex == currentAnimeImagePaths.size()) {
@@ -510,22 +493,6 @@ public class EditAnimeController implements Initializable {
         setGalleryImage();
 
         logger.info("Image '" + imageNameToDelete + "' was deleted");
-    }
-
-    private Image loadImage(String imageName) {
-        Path imagePath = Paths.get(DB_IMAGES_FOLDER, imageName);
-
-        if (Files.notExists(imagePath)) return null;
-
-        InputStream fileStream = Main.getFileStream(imagePath.toFile());
-        Image image = new Image(fileStream);
-        try {
-            fileStream.close();
-        } catch (Exception e) {
-            logger.error("Error closing image file stream: ", e);
-        }
-
-        return image;
     }
 
     @Override

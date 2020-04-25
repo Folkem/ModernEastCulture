@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="450.0" prefWidth="800.0" styleClass="editForm" stylesheets="@/res/img/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.EditAnimeController">
 
-    <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="422.0" prefWidth="772.0" style="-fx-background-color: rgba(233,233,233,0.8);" stylesheets="@/res/img/style.css" vvalue="0.46">
+    <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="422.0" prefWidth="772.0" style="-fx-background-color: rgba(233,233,233,0.8);" stylesheets="@/res/img/style.css">
         <Pane maxHeight="1.7976931348623157E308" prefHeight="1270.0" prefWidth="753.0">
             <ImageView fx:id="ivFirstImage" fitHeight="300.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@/res/img/no_image.jpg" />
@@ -141,12 +141,12 @@
                     <Font name="Century Gothic Bold" size="16.0" />
                 </font>
             </Button>
-         <ListView fx:id="lvAuthors" layoutX="250.0" layoutY="450.0" opacity="0.8" prefHeight="70.0" prefWidth="200.0" />
-         <Label alignment="CENTER" layoutX="250.0" layoutY="400.0" prefHeight="50.0" prefWidth="200.0" text="%author">
-            <font>
-               <Font name="Century Gothic Bold Italic" size="24.0" />
-            </font>
-         </Label>
+            <ListView fx:id="lvAuthors" layoutX="250.0" layoutY="450.0" opacity="0.8" prefHeight="70.0" prefWidth="200.0" />
+            <Label alignment="CENTER" layoutX="250.0" layoutY="400.0" prefHeight="50.0" prefWidth="200.0" text="%author">
+                <font>
+                    <Font name="Century Gothic Bold Italic" size="24.0" />
+                </font>
+            </Label>
         </Pane>
     </ScrollPane>
 </AnchorPane>

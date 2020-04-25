@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="450.0" prefWidth="800.0" styleClass="viewInfoForm" stylesheets="@../img/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.AnimeInfoController">
+    <ScrollPane layoutX="14.0" layoutY="51.0" prefHeight="385.0" prefWidth="776.0" style="-fx-background-color: rgba(233,233,233,0.5);">
+        <VBox>
+            <VBox>
+                <HBox>
+                    <VBox maxWidth="517.0" minHeight="320.0" minWidth="517.0">
+                        <Label fx:id="lAnimeName" maxHeight="517.0" minWidth="517.0" text="Українська назва аніме" wrapText="true">
+                            <font>
+                                <Font name="SansSerif Regular" size="36.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lAnimeAltNames" layoutX="10.0" layoutY="10.0" maxHeight="517.0" minWidth="517.0" text="Alt&#10;Names" wrapText="true">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <Separator minHeight="5.0" prefWidth="200.0" />
+                        <TextFlow minHeight="20.0">
+                            <Label maxHeight="517.0" minWidth="0.0" text="%status" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label layoutX="10.0" layoutY="10.0" maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lStatus" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="Somestatus" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="88.0" minHeight="20.0">
+                            <Label maxHeight="517.0" minWidth="0.0" text="%premiereYear" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lYear" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="110.0" minHeight="20.0">
+                            <Label maxHeight="517.0" minWidth="0.0" text="%premiereSeason" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lPremiereSeason" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="130.0" minHeight="20.0">
+                            <Label maxHeight="517.0" minWidth="0.0" text="%ageRating" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lAgeRating" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="150.0" minHeight="20.0">
+                            <Label fx:id="lGenresTitle" maxHeight="517.0" minWidth="0.0" text="%genres" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lGenres" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="170.0" minHeight="20.0">
+                            <Label maxHeight="517.0" minWidth="0.0" text="%source" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lSource" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="190.0" minHeight="20.0">
+                            <Label fx:id="lAuthorTitle" maxHeight="517.0" minWidth="0.0" text="%author" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lAuthor" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="210.0" minHeight="20.0">
+                            <Label maxHeight="517.0" minWidth="0.0" text="%type" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lType" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="230.0" minHeight="20.0">
+                            <Label maxHeight="517.0" minWidth="0.0" text="%episodeCount" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label maxHeight="517.0" minWidth="0.0" text=": " wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="lEpisodeCount" layoutX="10.0" layoutY="10.0" maxHeight="517.0" maxWidth="400.0" minWidth="0.0" text="20" wrapText="true">
+                                <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                </font>
+                            </Label>
+                        </TextFlow>
+                    </VBox>
+                    <ImageView fx:id="ivFirstImage" fitHeight="320.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" />
+                </HBox>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="517.0">
+                <Label fx:id="lDescription" lineSpacing="3.0" text="Description" wrapText="true">
+                    <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                    </font>
+                </Label>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+    <Button layoutX="640.0" mnemonicParsing="false" onAction="#onBExitEditWindowClick" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: rgba(100,100,100,0.1);" text="%exitButton" textFill="WHITE">
+        <font>
+            <Font name="Century Gothic Bold" size="18.0" />
+        </font>
+    </Button>
+</AnchorPane>

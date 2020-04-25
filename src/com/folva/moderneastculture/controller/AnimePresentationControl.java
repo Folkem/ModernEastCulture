@@ -45,6 +45,7 @@ public class AnimePresentationControl extends Pane implements Initializable {
     public ImageView ivAnimeImage;
 
     public final BooleanProperty isDeleted = new SimpleBooleanProperty(false);
+    public final BooleanProperty infoCallHandled = new SimpleBooleanProperty(true);
 
     public Logger logger;
 
@@ -75,6 +76,10 @@ public class AnimePresentationControl extends Pane implements Initializable {
         lAnimePremiereYear.setText(String.valueOf(anime.getPremiereYear()));
     }
 
+    public Anime getAnime() {
+        return currentAnime;
+    }
+
     public void setEditingObjectReference(SimpleObjectProperty<OpenPair<Boolean, Anime>> reference) {
         editingObjectReference = reference;
     }
@@ -97,6 +102,11 @@ public class AnimePresentationControl extends Pane implements Initializable {
     @FXML
     private void onBEditAnimeClick() {
         editingObjectReference.setValue(new OpenPair<>(true, currentAnime));
+    }
+
+    @FXML
+    private void onBShowAnimeInfoClick() {
+        infoCallHandled.setValue(false);
     }
 
     @SuppressWarnings("DuplicatedCode")

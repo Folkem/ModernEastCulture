@@ -3,6 +3,7 @@ package com.folva.moderneastculture.model;
 import com.folva.moderneastculture.Main;
 import com.folva.moderneastculture.model.dto.*;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.image.Image;
 import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -264,11 +265,32 @@ public class Repository {
         dbRepository.updateAnimeImages(animeImages);
     }
 
-    private static String getFileExtension(File file) {
+    public static String getFileExtension(File file) {
         String fileName = file.getName();
         if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
             return fileName.substring(fileName.lastIndexOf(".") + 1);
         else return "";
+    }
+
+    public static Image loadImage(String imageName) {
+        Path imagePath = Paths.get(DB_IMAGES_FOLDER, imageName);
+
+        if (Files.notExists(imagePath)) return null;
+
+        InputStream fileStream = Main.getFileStream(imagePath.toFile());
+        Image image = new Image(fileStream);
+        try {
+            fileStream.close();
+        } catch (Exception e) {
+            logger.error("Error closing image file stream: ", e);
+        }
+
+        return image;
+    }
+
+    public static Image getNoImageImage() {
+        URL notFoundImageResource = Main.getResource("/res/img/no_image.jpg");
+        return new Image(notFoundImageResource.toString());
     }
 
     public void insertNewAnime(Anime newAnime) {
@@ -606,7 +628,6 @@ public class Repository {
             return genres;
         }
 
-        @SuppressWarnings("OptionalGetWithoutIsPresent")
         public ArrayList<Pair<Anime, Genre>> getAnimeGenreMap() {
             ArrayList<Pair<Anime, Genre>> animeGenres = new ArrayList<>();
             ArrayList<Anime> animes = getAnimes();

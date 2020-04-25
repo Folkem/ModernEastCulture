@@ -13,6 +13,11 @@
     -fx-background-size: cover;
 }
 
+.viewInfoForm {
+    -fx-background-image: url(/res/img/bg_infoview.gif);
+    -fx-background-size: cover;
+}
+
 .editForm {
     -fx-background-image: url(/res/img/bg_edit.gif);
     -fx-background-size: cover;

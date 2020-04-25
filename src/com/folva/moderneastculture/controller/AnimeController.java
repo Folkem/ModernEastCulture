@@ -151,6 +151,28 @@ public class AnimeController implements Initializable {
                     animeList.remove(animePair);
                     filteredAnimeList.remove(animePair);
                 });
+                animeControl.infoCallHandled.addListener((observable, oldValue, newValue) -> {
+                    boolean startLooking = !newValue;
+
+                    if (startLooking) {
+                        Parent editPane = Main.getForm("AnimeInfoForm");
+                        try {
+                            AnimeInfoController infoController = (AnimeInfoController) Main
+                                    .getControllerForForm("AnimeInfoForm");
+                            infoController.setAnimeControllerReference(animeControl);
+                        } catch (Exception e) {
+                            logger.error("Error while setting called anime control for info controller: ", e);
+                            Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("problemOccurred"));
+                            Main.errorAlert.showAndWait();
+                            System.exit(-1);
+                        }
+                        tabAnime.setContent(editPane);
+                    } else {
+                        Parent animeContentPane = Main.getForm("AnimeForm");
+                        importAnime();
+                        tabAnime.setContent(animeContentPane);
+                    }
+                });
                 animeControl.setEditingObjectReference(editingObject);
                 animeControls.add(animeControl);
 
