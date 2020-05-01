@@ -4708,3 +4708,171 @@ org.sqlite.SQLiteException: [SQLITE_CONSTRAINT]  Abort due to constraint violati
 2020.04.25 - 13:27:04.387 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
 2020.04.25 - 13:27:21.553 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged out!
 2020.04.25 - 13:30:02.798 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 09:07:27.645 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:07:28.210 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:07:28.252 [ERROR] com.folva.moderneastculture.model.Repository - Error while getting comics from db: 
+java.sql.SQLException: no such column: 'episode_count'
+	at org.sqlite.jdbc3.JDBC3ResultSet.findColumn(JDBC3ResultSet.java:49) ~[sqlite-jdbc-3.30.1.jar:?]
+	at org.sqlite.jdbc3.JDBC3ResultSet.getInt(JDBC3ResultSet.java:408) ~[sqlite-jdbc-3.30.1.jar:?]
+	at com.folva.moderneastculture.model.Repository$DbRepository.getComics(Repository.java:722) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.model.Repository.getComics(Repository.java:235) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.ComicsController.importComics(ComicsController.java:72) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.controller.ComicsController.initialize(ComicsController.java:60) ~[ModernEastCulture/:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.access$2700(FXMLLoader.java:103) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$IncludeElement.constructValue(FXMLLoader.java:1143) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:746) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441) ~[jfxrt.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:2409) ~[jfxrt.jar:?]
+	at com.folva.moderneastculture.Main.runMenuForm(Main.java:120) ~[ModernEastCulture/:?]
+	at com.folva.moderneastculture.Main.start(Main.java:62) ~[ModernEastCulture/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$8(LauncherImpl.java:863) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$7(PlatformImpl.java:326) ~[jfxrt.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$null$5(PlatformImpl.java:295) ~[jfxrt.jar:?]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_221]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$6(PlatformImpl.java:294) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[jfxrt.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$null$3(WinApplication.java:177) ~[jfxrt.jar:?]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
+2020.04.26 - 09:07:28.703 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:08:22.623 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:08:22.951 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:08:22.984 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:08:51.541 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 09:10:49.565 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:10:49.880 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:10:49.911 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:11:39.852 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.26 - 09:11:43.952 [INFO] com.folva.moderneastculture.controller.ComicsController - Comics: Сутінковий зоопарк was deleted
+2020.04.26 - 09:11:55.793 [INFO] com.folva.moderneastculture.controller.ComicsController - Comics: Сутінковий зоопарк was deleted
+2020.04.26 - 09:12:58.720 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 09:19:44.253 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:19:44.590 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:19:44.621 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:20:26.761 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 09:22:39.983 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:22:40.174 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:22:40.193 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:22:53.927 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 09:23:16.651 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:23:16.858 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:23:16.878 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:25:17.331 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:25:17.528 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:25:17.549 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:25:21.000 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.26 - 09:25:49.897 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 09:31:23.132 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:31:23.324 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:31:23.344 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:31:26.965 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.26 - 09:31:31.411 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 09:31:43.481 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 09:31:43.695 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 09:31:43.714 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 09:31:47.094 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.26 - 09:44:50.754 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 16:58:28.263 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 16:58:28.748 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 16:58:28.851 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 16:59:27.168 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 16:59:27.486 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 16:59:27.517 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:00:33.748 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 17:00:40.176 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 17:00:40.528 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 17:00:40.576 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:01:05.407 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 17:01:12.322 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 17:01:12.694 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 17:01:12.746 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:01:34.867 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 17:01:41.995 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 17:01:42.339 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 17:01:42.386 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:02:32.461 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 17:02:32.815 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 17:02:32.885 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:03:26.815 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 17:03:27.166 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 17:03:27.211 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:06:30.856 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 17:06:31.210 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 17:06:31.255 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:25:16.719 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.26 - 17:26:54.663 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.26 - 17:26:54.994 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.26 - 17:26:55.037 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.26 - 17:28:14.837 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:38:32.692 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:38:33.228 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:38:33.352 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:38:40.477 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:40:34.611 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:40:34.949 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:40:34.986 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:40:43.720 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:41:00.514 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:41:00.829 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:41:00.862 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:41:05.704 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:42:43.073 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:42:43.504 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:42:43.534 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:42:56.306 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:44:50.021 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:44:50.366 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:44:50.399 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:44:55.767 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:45:23.246 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:45:23.581 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:45:23.622 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:45:30.973 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:45:57.748 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:45:58.078 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:45:58.110 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:46:01.808 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:46:28.271 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:46:28.614 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:46:28.655 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:47:02.556 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.27 - 11:47:27.067 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:50:26.346 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:50:26.792 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:50:26.834 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:50:31.777 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:51:07.306 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:51:07.619 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:51:07.649 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:51:12.704 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 11:51:26.357 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 11:51:26.673 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 11:51:26.704 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 11:51:30.242 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 15:35:11.518 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 15:35:11.997 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 15:35:12.083 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 15:35:30.453 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.27 - 15:37:26.383 [INFO] com.folva.moderneastculture.controller.EditAnimeController - Anime with id 9 was altered
+2020.04.27 - 15:37:59.650 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 15:38:00.009 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 15:38:00.059 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 15:38:16.394 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.27 - 15:38:32.225 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 15:47:04.522 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 15:47:04.913 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 15:47:04.971 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 15:47:19.903 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.27 - 15:47:29.374 [INFO] com.folva.moderneastculture.controller.EditAnimeController - Anime with id 1 was altered
+2020.04.27 - 15:47:38.259 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.
+2020.04.27 - 15:47:45.301 [INFO] com.folva.moderneastculture.model.Repository - Database connection is successful.
+2020.04.27 - 15:47:45.624 [INFO] com.folva.moderneastculture.controller.AnimeController - AnimeController has been loaded!
+2020.04.27 - 15:47:45.656 [INFO] com.folva.moderneastculture.controller.ComicsController - ComicsController has been loaded!
+2020.04.27 - 15:47:59.514 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged in!
+2020.04.27 - 15:48:16.910 [INFO] com.folva.moderneastculture.controller.EditAnimeController - Anime with id 1 was altered
+2020.04.27 - 15:48:25.686 [INFO] com.folva.moderneastculture.controller.MenuController - Admin has logged out!
+2020.04.27 - 15:48:26.995 [INFO] com.folva.moderneastculture.model.Repository - Database was successfully disconnected.

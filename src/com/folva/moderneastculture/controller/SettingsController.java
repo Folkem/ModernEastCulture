@@ -7,6 +7,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
+/**
+ * Контроллер меню налаштувань. Відповідає лише за зміну облікових даних адміністратора
+ */
 public class SettingsController {
 
     @FXML

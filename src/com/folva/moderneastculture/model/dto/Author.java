@@ -1,7 +1,13 @@
 package com.folva.moderneastculture.model.dto;
 
+/**
+ * Звичайний DTO-об'єкт автору
+ */
 public class Author {
 
+    /**
+     * Типи авторів
+     */
     public enum Type {
         STUDIO,
         HUMAN
@@ -13,72 +19,62 @@ public class Author {
 
     private Author() {}
 
+    /**
+     * @return ідентифікатор автора
+     */
     public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    /**
+     * Встановлює новий ідентифікатор автора
+     * @param id новий ідентифікатор автора
+     */
+    public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return тип автору
+     */
     public Type getType() {
         return type;
     }
 
+    /**
+     * Встановлює новий тип автора
+     * @param type новий тип автору
+     */
     public void setType(Type type) {
         this.type = type;
     }
 
+    /**
+     * @return ім'я автору
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Встановлює нове ім'я автору
+     * @param name нове ім'я автору
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public static class Builder {
-
-        private final Author author;
-
-        private Builder() {
-            author = new Author();
-        }
-
-        public static Builder newBuilder() {
-            return new Builder();
-        }
-
-        public Builder setId(int id) {
-            author.id = id;
-            return this;
-        }
-
-        public Builder setType(Type type) {
-            author.type = type;
-            return this;
-        }
-
-        public Builder setName(String name) {
-            author.name = name;
-            return this;
-        }
-
-        public Author build() {
-            return author;
-        }
-    }
-
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Author)) return false;
+        boolean result = false;
+        if (obj instanceof Author) {
+            Author author = (Author) obj;
+            boolean sameId = (id == author.id);
+            boolean sameType = (type.equals(author.type));
+            boolean sameName = (name.equals(author.name));
+            result = sameId && sameType && sameName;
+        }
 
-        Author author = (Author)obj;
-
-        boolean sameId = (id == author.id);
-        boolean sameType = (type.equals(author.type));
-        boolean sameName = (name.equals(author.name));
-
-        return sameId && sameType && sameName;
+        return result;
     }
 }

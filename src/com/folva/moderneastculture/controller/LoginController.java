@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Контроллер підменю авторизації. Відповідає лише за саму авторизацію
+ */
 public class LoginController implements Initializable {
 
     @FXML
@@ -40,7 +43,7 @@ public class LoginController implements Initializable {
             Main.warningAlert.show();
             return;
         }
-        
+
         Main.confirmationAlert.setContentText(Repository.instance.getNamesBundleValue("credentialsAreCorrect"));
         Main.confirmationAlert.show();
 
@@ -52,7 +55,5 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tbLogin.setText("somebody@oncetold.me");
-        tbPassword.setText("simplePassword");
     }
 }

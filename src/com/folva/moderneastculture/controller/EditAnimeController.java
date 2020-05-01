@@ -30,6 +30,11 @@ import java.util.stream.Collectors;
 import static com.folva.moderneastculture.model.Repository.DB_IMAGES_FOLDER;
 import static com.folva.moderneastculture.model.Repository.loadImage;
 
+/**
+ * Підменю редагування аніме. Відповідає за зміну та добавлення нових
+ * аніме
+ */
+@SuppressWarnings("DuplicatedCode")
 public class EditAnimeController implements Initializable {
 
     private static final Logger logger = LogManager.getLogger(EditAnimeController.class.getName());
@@ -77,6 +82,10 @@ public class EditAnimeController implements Initializable {
 
     private boolean isNew = false;
 
+    /**
+     * Встановлює посилання на об'єкт-властивість стану змінення об'єкту та самого об'єкту аніме
+     * @param reference посилання на об'єкт-властивість стану змінення об'єкту та самого об'єкту аніме
+     */
     public void setEditingObjectReference(SimpleObjectProperty<OpenPair<Boolean, Anime>> reference) {
         editingObjectReference.set(reference);
         currentAnimeImagePaths.clear();
@@ -154,6 +163,7 @@ public class EditAnimeController implements Initializable {
         }
         if (currentAnimeImagePaths.size() == 0) {
             bDeleteImage.setDisable(true);
+            ivCurrentGalleryImage.setImage(Repository.getNoImageImage());
             return;
         }
 
@@ -194,7 +204,7 @@ public class EditAnimeController implements Initializable {
         });
     }
 
-    @SuppressWarnings({"OptionalGetWithoutIsPresent", "DuplicatedCode"})
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @FXML
     private void onBSaveClick() {
         if (!fieldsAreValidated()) return;
@@ -295,6 +305,7 @@ public class EditAnimeController implements Initializable {
             currentAnime.setType(newType);
             currentAnime.setPremiereSeason(newPremiereSeason);
             currentAnime.setStatus(newStatus);
+            Repository.instance.updateAnime(currentAnime);
             currentAnime.invalidate();
         }
 
@@ -310,7 +321,6 @@ public class EditAnimeController implements Initializable {
         logger.info(String.format("Anime with id %d was altered", currentAnimeId));
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private boolean fieldsAreValidated() {
         String newName = taName.getText();
         int newPremiereYear = Integer.parseInt(tbPremiereYear.getText());
@@ -359,7 +369,6 @@ public class EditAnimeController implements Initializable {
                 correctStatusSelected && correctAuthorSelected;
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void centerImage(ImageView imageView) {
         Image img = imageView.getImage();
         if (img != null) {
@@ -373,7 +382,6 @@ public class EditAnimeController implements Initializable {
 
             imageView.setX((imageView.getFitWidth() - width) / 2);
             imageView.setY((imageView.getFitHeight() - height) / 2);
-
         }
     }
 
@@ -383,7 +391,7 @@ public class EditAnimeController implements Initializable {
         File file = fileChooser.showOpenDialog(Main.stage);
         if (file == null) return;
 
-        Path destinationImagePath = Repository.instance.imageWasCopied(file);
+        Path destinationImagePath = Repository.instance.imageWasCopiedToDbImgFolder(file);
         if (destinationImagePath == null) return;
 
         InputStream fileStream = Main.getFileStream(destinationImagePath.toFile());
@@ -452,7 +460,7 @@ public class EditAnimeController implements Initializable {
         File newImage = fileChooser.showOpenDialog(Main.stage);
         if (newImage == null) return;
 
-        Path destinationImagePath = Repository.instance.imageWasCopied(newImage);
+        Path destinationImagePath = Repository.instance.imageWasCopiedToDbImgFolder(newImage);
         if (destinationImagePath == null) return;
 
         String newImageFileName = destinationImagePath.getFileName().toString();

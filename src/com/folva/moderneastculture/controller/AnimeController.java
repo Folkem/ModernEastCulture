@@ -23,6 +23,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Контроллер відповідаючий за головне підменю аніме - де можна продивитися увесь
+ * список наявних коміксів та відфільтрувати, викликати меню редагування, додавання,
+ * оглядання повної інформації якогось коміксу або видалити взагалі аніме
+ */
 public class AnimeController implements Initializable {
 
     private static final Logger logger = LogManager.getLogger(AnimeController.class.getName());
@@ -60,14 +65,39 @@ public class AnimeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         importAnime();
-        setUpGenres();
-        setAnimeTypes();
-        setAnimeStatuses();
-        setAnimeYearBoxes();
-        setAgeRatings();
-        setAnimeDisplay();
+        setUpFiltrationData();
         setPagination();
         bindProperties();
+        logger.info("AnimeController has been loaded!");
+    }
+
+    /**
+     * Встановлює посилання на вкладку аніме для переключення між підменю
+     * @param tabAnime посилання на вкладку аніме
+     */
+    public void setTabAnime(Tab tabAnime) {
+        this.tabAnime = tabAnime;
+    }
+
+    private void importAnime() {
+        ArrayList<Anime> animes = Repository.instance.getAnimes(true);
+        animeList.clear();
+        animeList.addAll(animes.stream().map(anime ->
+                new OpenPair<Anime, AnimePresentationControl>(anime, null))
+                .collect(Collectors.toCollection(ArrayList::new)));
+        filteredAnimeList = new ObservableListWrapper<>(new ArrayList<>());
+        filteredAnimeList.addAll(animeList);
+        setAnimeDisplay();
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private void setAnimeDisplay() {
+        filteredAnimeList.addListener((InvalidationListener) c -> {
+            int newPageCount = (int) Math.ceil(filteredAnimeList.size() / (double) ANIME_CONTROLS_PER_PAGE);
+            newPageCount = (newPageCount > 0) ? newPageCount : 1;
+            animePagination.setPageCount(newPageCount + 2);
+            animePagination.setPageCount(newPageCount);
+        });
     }
 
     private void bindProperties() {
@@ -93,16 +123,6 @@ public class AnimeController implements Initializable {
                 tabAnime.setContent(animeContentPane);
             }
         });
-
-        animeList.forEach(animePair -> {
-            Anime anime = animePair.getKey();
-            anime.addInvalidationListener(observable -> {
-                AnimePresentationControl value = animePair.getValue();
-                value.setAnime(anime);
-                value.loadImage();
-            });
-        });
-
         bAddNewAnime.visibleProperty().bind(Repository.adminIsAuthorizedProperty);
         tbAnimeName.prefWidthProperty().bind(new DoubleBinding() {
 
@@ -140,6 +160,12 @@ public class AnimeController implements Initializable {
                     continue;
                 }
                 Anime anime = animePair.getKey();
+
+                anime.addInvalidationListener(observable -> {
+                    AnimePresentationControl presentationControl = animePair.getValue();
+                    presentationControl.setAnime(anime);
+                    presentationControl.loadImage();
+                });
 
                 AnimePresentationControl animeControl = new AnimePresentationControl();
                 animeControl.logger = logger;
@@ -186,27 +212,12 @@ public class AnimeController implements Initializable {
         });
     }
 
-    public void setTabAnime(Tab tabAnime) {
-        this.tabAnime = tabAnime;
-    }
-
-    private void setAnimeDisplay() {
-        filteredAnimeList.addListener((InvalidationListener) c -> {
-            int newPageCount = (int) Math.ceil(filteredAnimeList.size() / (double) ANIME_CONTROLS_PER_PAGE);
-            newPageCount = (newPageCount > 0) ? newPageCount : 1;
-            animePagination.setPageCount(newPageCount + 2);
-            animePagination.setPageCount(newPageCount);
-        });
-    }
-
-    private void importAnime() {
-        ArrayList<Anime> animes = Repository.instance.getAnimes(true);
-        animeList.clear();
-        animeList.addAll(animes.stream().map(anime ->
-                new OpenPair<Anime, AnimePresentationControl>(anime, null))
-                .collect(Collectors.toCollection(ArrayList::new)));
-        filteredAnimeList = new ObservableListWrapper<>(new ArrayList<>());
-        filteredAnimeList.addAll(animeList);
+    private void setUpFiltrationData() {
+        setUpGenres();
+        setAnimeTypes();
+        setAnimeStatuses();
+        setAnimeYearBoxes();
+        setAgeRatings();
     }
 
     private void setAgeRatings() {
@@ -228,10 +239,11 @@ public class AnimeController implements Initializable {
         tbYearTo.textProperty().addListener(tbChangeListener);
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private void setAnimeStatuses() {
         ArrayList<String> animeStatuses = new ArrayList<>();
         for (Status status : Status.values()) {
-            animeStatuses.add(Repository.instance.getNamesBundleValue(status.toString().toLowerCase()));
+            animeStatuses.add(Repository.instance.getNamesBundleValue(status.name));
         }
         animeStatuses.add(Repository.instance.getNamesBundleValue("ignoreValue"));
         cbAnimeStatuses.getItems().addAll(animeStatuses);
@@ -240,7 +252,7 @@ public class AnimeController implements Initializable {
     private void setAnimeTypes() {
         ArrayList<String> animeTypes = new ArrayList<>();
         for (Anime.Type value : Anime.Type.values()) {
-            animeTypes.add(Repository.instance.getNamesBundleValue(value.toString().toLowerCase()));
+            animeTypes.add(Repository.instance.getNamesBundleValue(value.name));
         }
         animeTypes.add(Repository.instance.getNamesBundleValue("ignoreValue"));
         cbAnimeTypes.getItems().addAll(animeTypes);
@@ -248,10 +260,12 @@ public class AnimeController implements Initializable {
 
     private void setUpGenres() {
         lvGenres.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        lvGenres.getItems().addAll(Repository.instance.getGenres(false).stream().map(genre -> genre.name)
+        lvGenres.getItems().addAll(Repository.instance.getGenres(false).stream()
+                .map(genre -> genre.name)
                 .collect(Collectors.toCollection(ArrayList::new)));
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @FXML
     private void onBFilter() {
         if (!filterFieldsAreValidated()) return;
@@ -307,6 +321,7 @@ public class AnimeController implements Initializable {
                 .collect(Collectors.toCollection(ArrayList::new)));
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private boolean filterFieldsAreValidated() {
         int selectedYearFrom = tbYearFrom.getText().isEmpty() ? 0 : Integer.parseInt(tbYearFrom.getText());
         int selectedYearTo = tbYearTo.getText().isEmpty() ? 9999 : Integer.parseInt(tbYearTo.getText());
@@ -320,6 +335,7 @@ public class AnimeController implements Initializable {
         return true;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @FXML
     private void onBSearchByNameClick() {
         String animeName = tbAnimeName.getText();
@@ -335,8 +351,6 @@ public class AnimeController implements Initializable {
             return nameContainsSearchedSymbols || anyAltNameContainsSearchedSymbols;
         })
                 .collect(Collectors.toCollection(ArrayList::new)));
-
-        filteredAnimeList.forEach(anime -> System.out.println(anime.getKey().getName()));
     }
 
     @FXML

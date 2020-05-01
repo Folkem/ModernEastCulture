@@ -22,17 +22,36 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Головний клас з точкою входу в додаток, головними вспливаючими
+ * вікнами та деякими методами-утилітами
+ */
 public class Main extends Application {
 
     private static final Logger logger = LogManager.getLogger(Main.class.getName());
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 490;
 
+    /**
+     * Вспливаюче вікно "підтвердження" або ж якоїсь інформації
+     */
     public static final Alert confirmationAlert;
+    /**
+     * Вспливаюче вікно попереджень або якихось малих помилок
+     */
     public static final Alert warningAlert;
+    /**
+     * Вспливаюче вікно середніх та великих помилок
+     */
     public static final Alert errorAlert;
 
+    /**
+     * Головне (і єдине) вікно, на якому і висить весь інтерфейс програми
+     */
     public static Stage stage;
+    /**
+     * Колекція пар "назва меню-пара{об'єкт Parent меню-контроллер меню}"
+     */
     public static Map<String, Pair<Parent, Object>> formMap = new HashMap<>();
 
     static {
@@ -51,6 +70,10 @@ public class Main extends Application {
         errorAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
     }
 
+    /**
+     * Головна точка входу програми
+     * @param args аргументи командного рядку
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -69,6 +92,11 @@ public class Main extends Application {
         System.exit(0);
     }
 
+    /**
+     * @param formName Назва меню, яке потрібно отримати
+     * @return об'єкт Parent, який містить в собі все меню, за яким буде закріплений
+     * його відповідний контроллер, якщо він є, і null, якщо нема
+     */
     public static Parent getForm(String formName) {
         Parent root = new Group();
         try {
@@ -89,6 +117,10 @@ public class Main extends Application {
         return root;
     }
 
+    /**
+     * @param formName Назва меню, контроллер якого потрібно отримати
+     * @return об'єкт контроллеру меню, якщо він є, і null, якщо нема
+     */
     public static Object getControllerForForm(String formName) {
         Object controller = new Object();
 
@@ -99,10 +131,19 @@ public class Main extends Application {
         return controller;
     }
 
+    /**
+     * @param resourceName Ім'я ресурсу
+     * @return шлях до ресурсу у вигляді URL-об'єкту, якщо він є, і null, якщо нема
+     */
     public static URL getResource(String resourceName) {
         return Main.class.getResource(resourceName);
     }
 
+    /**
+     * @param file Файл, входячий поток якого потрібно отримати
+     * @return входячий поток відповідного файла, якщо він є, і null, якщо нема.
+     * При помилці додаток закривається, перед цим виводячи повідомлення про помилку.
+     */
     public static InputStream getFileStream(File file) {
         try {
             return new FileInputStream(file);

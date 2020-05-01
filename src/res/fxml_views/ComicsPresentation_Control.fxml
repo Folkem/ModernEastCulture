@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fx:id="ivComicsImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+    <Label fx:id="lComicsName" alignment="CENTER" layoutX="100.0" prefHeight="100.0" prefWidth="300.0" text="Якась українська назва коміксу" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <font>
+            <Font name="Century Gothic Bold Italic" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="lComicsPremiereYear" alignment="CENTER" layoutX="400.0" prefHeight="100.0" prefWidth="49.0" text="2012" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <font>
+            <Font name="Calibri Bold" size="20.0" />
+        </font>
+    </Label>
+    <Button fx:id="bDeleteComics" graphicTextGap="0.0" layoutX="449.0" mnemonicParsing="false" onAction="#onBDeleteComicsClick" prefHeight="33.0" prefWidth="32.0" style="-fx-background-color: rgba(255,0,0,1); -fx-background-radius: 0;" text="X" textFill="WHITE">
+        <font>
+            <Font name="Calibri Bold" size="16.0" />
+        </font>
+    </Button>
+    <Button fx:id="bEditComics" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="449.0" layoutY="33.0" mnemonicParsing="false" onAction="#onBEditComicsClick" prefHeight="34.0" prefWidth="32.0" style="-fx-background-color: rgba(180,180,180,0); -fx-background-image: url(/res/img/ic_edit.png);             -fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: cover;">
+        <font>
+            <Font name="Calibri Bold" size="16.0" />
+        </font>
+    </Button>
+    <Button contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="449.0" layoutY="67.0" mnemonicParsing="false" onAction="#onBShowComicsInfoClick" prefHeight="33.0" prefWidth="32.0" style="-fx-background-image: url(/res/img/ic_info.png); -fx-background-color: rgba(0,0,0,0);             -fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: cover;">
+        <font>
+            <Font name="Courier New" size="16.0" />
+        </font>
+    </Button>
+</Pane>

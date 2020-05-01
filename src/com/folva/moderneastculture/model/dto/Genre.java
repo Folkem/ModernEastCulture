@@ -1,5 +1,8 @@
 package com.folva.moderneastculture.model.dto;
 
+/**
+ * Звичайний DTO-об'єкт жанру
+ */
 public class Genre {
 
     public final int id;

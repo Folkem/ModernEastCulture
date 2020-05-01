@@ -14,27 +14,36 @@ import org.apache.logging.log4j.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Контроллер меню, яке містить всі інші підменю. Відповідає за переключення з
+ * одного підменю до іншого тип, що надає доступ до вкладок відповідних підменю,
+ * а також за переключення підменю авторизації та підменю налаштувань
+ */
 public class MenuController implements Initializable {
 
     private static final Logger logger = LogManager.getLogger(MenuController.class);
 
     @FXML
+    private TabPane tabPane;
+    @FXML
     private Tab tabAnime;
     @FXML
     private AnimeController animeController;
     @FXML
+    private Tab tabComics;
+    @FXML
+    private ComicsController comicsController;
+    @FXML
+    private Tab tabLogin;
+    @FXML
     private LoginController loginController;
-    @FXML
-    private Tab tabSettings;
-    @FXML
-    private TabPane tabPane;
 
     @FXML
     private void adminHasAuthorized() {
         logger.info("Admin has logged in!");
 
         Parent settingsPanel = Main.getForm("SettingsForm");
-        tabSettings.setContent(settingsPanel);
+        tabLogin.setContent(settingsPanel);
     }
 
     @FXML
@@ -42,7 +51,7 @@ public class MenuController implements Initializable {
         logger.info("Admin has logged out!");
 
         Parent loginPanel = Main.getForm("LoginForm");
-        tabSettings.setContent(loginPanel);
+        tabLogin.setContent(loginPanel);
     }
 
     @Override
@@ -55,13 +64,17 @@ public class MenuController implements Initializable {
             }
         });
 
-        Parent loginForm = (Parent)(tabSettings.getContent());
+        Parent loginForm = (Parent)(tabLogin.getContent());
         Main.formMap.put("LoginForm", new Pair<>(loginForm, loginController));
 
         Parent animeContentForm = (Parent)(tabAnime.getContent());
         Main.formMap.put("AnimeForm", new Pair<>(animeContentForm, animeController));
 
+        Parent comicsContentForm = (Parent)(tabComics.getContent());
+        Main.formMap.put("ComicsForm", new Pair<>(comicsContentForm, comicsController));
+
         animeController.setTabAnime(tabAnime);
+        comicsController.setTabComics(tabComics);
 
         tabPane.getSelectionModel().select(1);
     }

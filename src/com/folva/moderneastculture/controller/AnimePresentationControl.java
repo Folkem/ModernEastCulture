@@ -31,55 +31,82 @@ import java.util.ResourceBundle;
 
 import static com.folva.moderneastculture.model.Repository.DB_IMAGES_FOLDER;
 
+/**
+ * Контроллер елементу керування, який має в собі коротку інформацію про аніме
+ */
 public class AnimePresentationControl extends Pane implements Initializable {
 
     @FXML
-    public Label lAnimePremiereYear;
+    private Label lAnimePremiereYear;
     @FXML
-    public Label lAnimeName;
+    private Label lAnimeName;
     @FXML
-    public Button bDeleteAnime;
+    private Button bDeleteAnime;
     @FXML
-    public Button bEditAnime;
+    private Button bEditAnime;
     @FXML
-    public ImageView ivAnimeImage;
+    private ImageView ivAnimeImage;
 
+    /**
+     * Об'єкт-властивість, відповідаючий за стан видалення елементу керування
+     */
     public final BooleanProperty isDeleted = new SimpleBooleanProperty(false);
+    /**
+     * Об'єкт-властивість, відповідаючий за те, чи оброблений виклик меню інформації про аніме,
+     * яке носить в собі даний елемент керування
+     */
     public final BooleanProperty infoCallHandled = new SimpleBooleanProperty(true);
 
+    /**
+     * Об'єкт (логер), який виводить різного роду інформацію відносно цього елементу керування
+     */
     public Logger logger;
 
     private SimpleObjectProperty<OpenPair<Boolean, Anime>> editingObjectReference;
     private boolean isLoaded = false;
     private Anime currentAnime = null;
 
+    /**
+     * Завантажує даний елемент керування та встановлює залежності від об'єкту-властивості
+     * стану авторизації адміністратора
+     */
     public void load() {
-        if (isLoaded) return;
-
-        FXMLLoader loader = new FXMLLoader(Main.getResource("/res/fxml_views/AnimePresentation_Control.fxml"));
-        loader.setController(this);
-
-        try {
-            getChildren().add(loader.load());
-        } catch (IOException e) {
-            logger.error("Error while loading one of the anime presentation controls", e);
+        if (!isLoaded) {
+            FXMLLoader loader = new FXMLLoader(Main.getResource("/res/fxml_views/AnimePresentation_Control.fxml"));
+            loader.setController(this);
+            try {
+                getChildren().add(loader.load());
+            } catch (IOException e) {
+                logger.error("Error while loading one of the anime presentation controls", e);
+            }
+            bDeleteAnime.visibleProperty().bind(Repository.adminIsAuthorizedProperty);
+            bEditAnime.visibleProperty().bind(Repository.adminIsAuthorizedProperty);
+            isLoaded = true;
         }
 
-        isLoaded = true;
-        bDeleteAnime.visibleProperty().bind(Repository.adminIsAuthorizedProperty);
-        bEditAnime.visibleProperty().bind(Repository.adminIsAuthorizedProperty);
     }
 
+    /**
+     * Встановлює аніме, яке потрібно відображати в цьому елементі керування
+     * @param anime аніме для відображення
+     */
     public void setAnime(Anime anime) {
         currentAnime = anime;
         lAnimeName.setText(anime.getName());
         lAnimePremiereYear.setText(String.valueOf(anime.getPremiereYear()));
     }
 
+    /**
+     * @return аніме для відображення
+     */
     public Anime getAnime() {
         return currentAnime;
     }
 
+    /**
+     * Встановлює посилання на об'єкт-властивість стану змінення об'єкту та самого об'єкту аніме
+     * @param reference посилання на об'єкт-властивість стану змінення об'єкту та самого об'єкту аніме
+     */
     public void setEditingObjectReference(SimpleObjectProperty<OpenPair<Boolean, Anime>> reference) {
         editingObjectReference = reference;
     }
@@ -110,7 +137,7 @@ public class AnimePresentationControl extends Pane implements Initializable {
     }
 
     @SuppressWarnings("DuplicatedCode")
-    public void centerImage() {
+    private void centerImage() {
         Image img = ivAnimeImage.getImage();
         if (img != null) {
             double ratioX = ivAnimeImage.getFitWidth() / img.getWidth();
@@ -123,10 +150,13 @@ public class AnimePresentationControl extends Pane implements Initializable {
 
             ivAnimeImage.setX((ivAnimeImage.getFitWidth() - width) / 2);
             ivAnimeImage.setY((ivAnimeImage.getFitHeight() - height) / 2);
-
         }
     }
 
+    /**
+     * Встановлює зображення, якщо воно є в базі даних та якщо вдалося завантажити в об'єкт Image
+     */
+    @SuppressWarnings("DuplicatedCode")
     public void loadImage() {
         ArrayList<Pair<Integer, String>> animeImages = Repository.instance.getAnimeImagePaths(true);
         Optional<Pair<Integer, String>> optionalAnimeImagePair = animeImages.stream()

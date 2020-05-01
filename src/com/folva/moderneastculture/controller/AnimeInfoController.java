@@ -20,6 +20,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Контроллер, який відповідає за меню відображення повної інформації про аніме
+ */
+@SuppressWarnings("DuplicatedCode")
 public class AnimeInfoController implements Initializable {
 
     @FXML
@@ -59,7 +63,7 @@ public class AnimeInfoController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         lGenres.maxWidthProperty().bind(new DoubleBinding() {
             private static final int MAX_LEFT_PART_WIDTH = 517;
-            private static final int COLON_WIDTH = 9;
+            private static final int COLON_WIDTH = 10;
 
             { bind(lGenresTitle.widthProperty()); }
 
@@ -72,6 +76,12 @@ public class AnimeInfoController implements Initializable {
         });
     }
 
+    /**
+     * @param animePresentationControl посилання на об'єкт елементу керування, який викликав це меню.
+     *                                 Коли дане меню буде закриватися, у властивості цього елементу
+     *                                 керування змінять стан на true. Також дозволяє вилучити аніме
+     *                                 для відображення
+     */
     public void setAnimeControllerReference(AnimePresentationControl animePresentationControl) {
         this.animePresentationControl = animePresentationControl;
 
@@ -79,7 +89,8 @@ public class AnimeInfoController implements Initializable {
 
         lAnimeName.setText(anime.getName());
 
-        Optional<String> collectedAltNames = anime.getAltNames().stream()
+        Optional<String> collectedAltNames = anime.getAltNames()
+                .stream()
                 .reduce((s, s2) -> s.concat("\n").concat(s2));
         if (!collectedAltNames.isPresent()) {
             Main.errorAlert.setContentText(Repository.instance.getNamesBundleValue("fatalError"));
@@ -97,11 +108,13 @@ public class AnimeInfoController implements Initializable {
         lAgeRating.setText(anime.getAgeRating().name);
 
         ArrayList<Pair<Anime, Genre>> animeGenreMap = Repository.instance.getAnimeGenreMap(true);
-        ArrayList<String> currentAnimeGenreNames = animeGenreMap.stream().filter(animeGenrePair ->
-                animeGenrePair.getKey().getId() == anime.getId()).map(Pair::getValue)
+        ArrayList<String> currentAnimeGenreNames = animeGenreMap.stream()
+                .filter(animeGenrePair -> animeGenrePair.getKey().getId() == anime.getId())
+                .map(Pair::getValue)
                 .map(genre -> genre.name)
                 .collect(Collectors.toCollection(ArrayList::new));
-        String genresString = currentAnimeGenreNames.stream()
+        String genresString = currentAnimeGenreNames
+                .stream()
                 .reduce("", (s, s2) -> s.concat(", ".concat(s2)))
                 .substring(2);
         lGenres.setText(genresString);
@@ -133,7 +146,8 @@ public class AnimeInfoController implements Initializable {
         }
     }
 
-    public void onBExitEditWindowClick() {
+    @FXML
+    private void onBExitEditWindowClick() {
         animePresentationControl.infoCallHandled.setValue(true);
     }
 }

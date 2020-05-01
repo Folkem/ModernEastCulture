@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" styleClass="editForm" stylesheets="@/res/img/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.EditAnimeController">
+<AnchorPane prefHeight="450.0" prefWidth="800.0" styleClass="editForm" stylesheets="@/res/img/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.folva.moderneastculture.controller.EditAnimeController">
 
     <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="422.0" prefWidth="772.0" style="-fx-background-color: rgba(233,233,233,0.8);" stylesheets="@/res/img/style.css">
         <Pane maxHeight="1.7976931348623157E308" prefHeight="1270.0" prefWidth="753.0">
@@ -75,7 +68,7 @@
                     <Font name="Century Gothic Bold Italic" size="24.0" />
                 </font>
             </Label>
-            <TextField fx:id="tbPremiereYear" layoutX="460.0" layoutY="350.0" opacity="0.8" prefHeight="50.0" prefWidth="283.0" text="1950">
+            <TextField fx:id="tbPremiereYear" layoutX="460.0" layoutY="350.0" opacity="0.8" prefHeight="50.0" prefWidth="283.0" text="0">
                 <font>
                     <Font name="Cambria Math" size="24.0" />
                 </font>
